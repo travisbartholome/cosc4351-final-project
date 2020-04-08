@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test title</title>
+</head>
+<body>
+  <h1>render test</h1>
+  <% products.forEach(function(product) { %>
+    <p>Name: <%= product.name %> - Price: $<%= product.price.toFixed(2) %></p>
+  <% }); %>
+</body>
+</html>

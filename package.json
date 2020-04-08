@@ -4,7 +4,7 @@
   "description": "Semester project for COSC 4351 with Dr. Singh at the University of Houston, Spring 2020.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +20,8 @@
   "dependencies": {
     "ejs": "^3.0.2",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }

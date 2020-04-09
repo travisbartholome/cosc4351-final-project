@@ -42,7 +42,11 @@ app.get('/', (req, res) => {
   });
 });
 
+// Set the app to listen on a network port
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log(`Visit localhost:${PORT} in your browser to view`);
 });
+
+// Export the app for use in other places (i.e., tests)
+module.exports = app;

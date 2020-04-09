@@ -19,4 +19,10 @@ See [project.txt](./project.txt).
 
 ## Running the server
 
-**NOTE: TODO** In the root directory of this project (in your terminal), run `npm start`.
+In the root directory of this project (in your terminal), run `npm start`.
+
+## Testing
+
+Run tests using `npm test`.
+
+Testing is done with Jest: https://jestjs.io/en/

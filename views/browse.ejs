@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test title</title>
+</head>
+<body>
+  <!-- Just testing whether the data rendering works -->
+  <!-- This syntax might be useful later on when making the actual page template -->
+  <h1>render test</h1>
+  <% products.forEach(function(product) { %>
+    <p>Name: <%= product.name %> - Price: $<%= product.price.toFixed(2) %></p>
+    <img src="/static/images/<%= product.image %>" alt="Product image" height="150" />
+  <% }); %>
+</body>
+</html>

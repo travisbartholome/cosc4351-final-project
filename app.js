@@ -43,10 +43,15 @@ app.get('/', (req, res) => {
 });
 
 // Set the app to listen on a network port
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log(`Visit localhost:${PORT} in your browser to view`);
 });
+
+// Add a method to shut down the app, mostly for testing
+app.shutDown = () => {
+  server.close();
+};
 
 // Export the app for use in other places (i.e., tests)
 module.exports = app;

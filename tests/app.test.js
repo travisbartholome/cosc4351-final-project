@@ -10,3 +10,7 @@ describe('App', () => {
       .expect(200, done);
   });
 });
+
+afterAll(() => {
+  app.shutDown();
+});

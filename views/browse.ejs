@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
+<!-- stock head file that contains all pages metadata-->
 <head>
-  <% include C:\COSC4351_PROJECT\cosc4351-final-project\views\head.ejs %>
+ <%-include ('head.ejs') -%> 
 </head>
 <body>
   <header>
-    <% include C:\COSC4351_PROJECT\cosc4351-final-project\views\header.ejs %>
+  <%-include ('header.ejs') -%>
   </header>
   <!-- Just testing whether the data rendering works -->
   <!-- This syntax might be useful later on when making the actual page template -->
-  <h1>render test</h1>
   <% products.forEach(function(product) { %>
     <p>Name: <%= product.name %> - Price: $<%= product.price.toFixed(2) %></p>
     <img src="/static/images/<%= product.image %>" alt="Product image" height="150" />
   <% }); %>
+  <footer>
+    <%-include ('footer.ejs') -%>
+  </footer>
 </body>
 </html>

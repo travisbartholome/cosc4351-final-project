@@ -14,7 +14,7 @@
     <p>Name: <%= product.name %> - Price: $<%= product.price.toFixed(2) %></p>
     <img src="/static/images/<%= product.image %>" alt="Product image" height="150" />
   <% }); %>
-  <footer>
+  <footer class = "container-fluid text-center">
     <%-include ('footer.ejs') -%>
   </footer>
 </body>

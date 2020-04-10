@@ -19,7 +19,9 @@
   "homepage": "https://github.com/travisbartholome/cosc4351-final-project#readme",
   "dependencies": {
     "ejs": "^3.0.2",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.6"
   },
   "devDependencies": {
     "jest": "^25.3.0",
@@ -27,6 +29,8 @@
     "supertest": "^4.0.2"
   },
   "jest": {
-    "coverageReporters": ["text"]
+    "coverageReporters": [
+      "text"
+    ]
   }
 }

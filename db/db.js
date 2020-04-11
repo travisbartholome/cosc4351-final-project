@@ -1,5 +1,6 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 
+// Create db connection
 const sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
@@ -15,6 +16,7 @@ const sequelize = new Sequelize(
 
 class Product extends Model { }
 
+// Product data model
 Product.init({
     price: DataTypes.DOUBLE,
     name: DataTypes.STRING,
@@ -22,6 +24,12 @@ Product.init({
     image: DataTypes.STRING
 }, { sequelize, modelName: 'product' });
 
+// Function for closing the database connection
+const close = () => {
+    return sequelize.close();
+}
+
 module.exports = {
     Product: Product,
+    close: close,
 };

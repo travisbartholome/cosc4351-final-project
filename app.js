@@ -1,8 +1,12 @@
 // Import dependencies
 const path = require('path');
 const express = require('express');
-// const { Sequelize } = require('sequelize');
-const db = require('./db.js')
+
+// Add .env variables to environment
+require('dotenv').config();
+
+// Import DB object
+const db = require('./db/db.js')
 
 // If environment defines a port, use it; if not, default to the standard 3000
 const PORT = process.env.PORT || 3000;
@@ -19,6 +23,7 @@ app.set('view engine', 'ejs');
 
 // Set up main route for browse page
 app.get('/', (req, res) => {
+  // Render the template with products data
   db.Product.findAll({
     raw: true
   }).then(products => {
@@ -26,8 +31,9 @@ app.get('/', (req, res) => {
   });
 });
 
+// Route for checkout page
 app.get('/checkout', (req, res) => {
-    res.render('checkout', { total: 1200 })
+  res.render('checkout', { total: 1200 })
 });
 
 // Set the app to listen on a network port

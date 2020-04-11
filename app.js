@@ -45,6 +45,7 @@ const server = app.listen(PORT, () => {
 // Add a method to shut down the app, mostly for testing
 app.shutDown = () => {
   server.close();
+  db.close();
 };
 
 // Export the app for use in other places (i.e., tests)

@@ -18,12 +18,14 @@
   },
   "homepage": "https://github.com/travisbartholome/cosc4351-final-project#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "pg": "^8.0.2",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.6"
+    "sequelize": "^5.21.6",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "jest": "^25.3.0",

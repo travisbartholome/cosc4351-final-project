@@ -1,18 +1,24 @@
 // Import dependencies
 const path = require('path');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 
 // Add .env variables to environment
 require('dotenv').config();
 
-// Import DB object
-const db = require('./db/db.js')
+// Import local dependencies
+const db = require('./db/db.js');
+const idCookiesMiddleware = require('./util/idCookies');
 
 // If environment defines a port, use it; if not, default to the standard 3000
 const PORT = process.env.PORT || 3000;
 
 // Create express app object
 const app = express();
+
+// Attach middleware
+app.use(cookieParser()); // Parse cookie headers
+app.use(idCookiesMiddleware); // Attach ID cookies when needed
 
 // Set up express to serve static files from the /static directory
 app.use('/static', express.static(path.join(__dirname, 'static')));

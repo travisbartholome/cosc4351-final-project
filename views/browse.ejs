@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
+<!-- stock head file that contains all pages metadata-->
 <head>
-  <title>test title</title>
+ <%-include ('head.ejs') -%> 
 </head>
 <body>
-  <!-- Just testing whether the data rendering works -->
-  <!-- This syntax might be useful later on when making the actual page template -->
-  <h1>render test</h1>
-  <% products.forEach(function(product) { %>
-    <p>Name: <%= product.name %> - Price: $<%= product.price.toFixed(2) %></p>
-    <img src="/static/images/<%= product.image %>" alt="Product image" height="150" />
-  <% }); %>
+  <header>
+  <%-include ('header.ejs') -%>
+  </header>
+   <div class="row">
+    <% products.forEach(function(product){ %> 
+     <div class="col-sm-4">
+       <div class="product-card">
+         <img src="/static/images/<%= product.image %>" alt="Backpack Swag" style="width:100%"/>
+         <h1><%= product.name %></h1>
+         <p class="price">$<%=product.price.toFixed(2)%></p>
+         <p><%=product.description %></p>
+         <p><button>Add to Cart</button></p>
+       </div> 
+     </div>
+    <%});%> 
+  </div>
+  <footer class = "container-fluid text-center">
+    <%-include ('footer.ejs') -%>
+  </footer>
 </body>
 </html>

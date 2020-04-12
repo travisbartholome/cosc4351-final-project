@@ -37,6 +37,14 @@ app.get('/', (req, res) => {
         description: 'Yet another stellar product.',
         image: 'image1.jpg',
       },
+      {
+        id: 3,
+        name: 'Product 3',
+        quantity: 33,
+        price: 78.00,
+        description: 'A very very nice product.',
+        image: 'image1.jpg',
+      },
       // ... etc.
     ],
   });

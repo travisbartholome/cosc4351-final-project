@@ -10,6 +10,12 @@ describe('App', () => {
       .expect(200, done);
   });
 
+  it('should successfully render a page on GET to /cart', done => {
+    request(app)
+      .get('/cart')
+      .expect(200, done);
+  });
+
   it('should successfully render a page on GET to /checkout', done => {
     request(app)
       .get('/checkout')

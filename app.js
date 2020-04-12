@@ -37,6 +37,14 @@ app.get('/', (req, res) => {
   });
 });
 
+// Route for cart page
+app.get('/cart', (req, res) => {
+  res.render('cart', {
+    // TODO: add cart data
+    cart: {},
+  });
+});
+
 // Route for checkout page
 app.get('/checkout', (req, res) => {
   res.render('checkout', { total: 1200 })

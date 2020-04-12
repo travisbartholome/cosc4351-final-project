@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DB should return a product object with expected properties 1`] = `
+Object {
+  "description": "A product.",
+  "id": 1,
+  "image": "product1.jpg",
+  "name": "Product 1",
+  "price": 26.99,
+}
+`;

@@ -54,3 +54,19 @@ Again, make sure the file path is formatted as described above.
 After this, test the data load by running `SELECT * FROM products;` in the psql
 terminal; you should see the dummy data displayed as a result.
 That means the database should be ready to use!
+
+## Configuring the project
+
+Create a file named `.env` in the project root directory.
+This file will contain information that shouldn't be committed to version control
+(database credentials, API keys, etc.).
+
+Within that file, write the following information, replacing the values of each property
+with the appropriate value:
+
+```
+DB_NAME=your_db_name
+DB_HOST=your_db_host
+DB_USER=your_db_user
+DB_PASS=your_db_password
+```

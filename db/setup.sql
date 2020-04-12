@@ -1,6 +1,9 @@
 -- Create DB
 CREATE DATABASE cosc4351;
 
+-- Connect to new DB
+\c cosc4351;
+
 -- Stores product information
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,

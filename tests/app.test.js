@@ -9,6 +9,12 @@ describe('App', () => {
       .get('/')
       .expect(200, done);
   });
+
+  it('should successfully render a page on GET to /checkout', done => {
+    request(app)
+      .get('/checkout')
+      .expect(200, done);
+  });
 });
 
 afterAll(() => {

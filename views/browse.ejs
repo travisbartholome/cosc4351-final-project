@@ -8,19 +8,15 @@
   <header>
   <%-include ('header.ejs') -%>
   </header>
-  <!-- Just testing whether the data rendering works -->
-  <!-- This syntax might be useful later on when making the actual page template -->
-  <!-- <% products.forEach(function(product) { %>
-    <p>Name: <%= product.name %> - Price: $<%= product.price.toFixed(2) %></p>
-    <img src="/static/images/<%= product.image %>" alt="Product image" height="150" />
-  <% }); %> --> 
-  <div class="product-card">
-    <img src="/static/images/image1.jpg" alt="Backpack Swag" style="width:100%">
-    <h1>Product Name</h1>
-    <p class="price">$$$</p>
-    <p>Product Description</p>
-    <p><button>Add to Cart</button></p>
-  </div>  
+  <% products.forEach(function(product){ %>
+    <div class="product-card">
+      <img src="/static/images/<%= product.image %>" alt="Backpack Swag" height="150"/>
+      <h1><%= product.name %></h1>
+      <p class="price">$<%=product.price.toFixed(2)%></p>
+      <p>Product Description</p>
+      <p><button>Add to Cart</button></p>
+    </div> 
+   <%});%>
   <footer class = "container-fluid text-center">
     <%-include ('footer.ejs') -%>
   </footer>

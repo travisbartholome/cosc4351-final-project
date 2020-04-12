@@ -8,15 +8,19 @@
   <header>
   <%-include ('header.ejs') -%>
   </header>
-  <% products.forEach(function(product){ %>
-    <div class="product-card">
-      <img src="/static/images/<%= product.image %>" alt="Backpack Swag" height="150"/>
-      <h1><%= product.name %></h1>
-      <p class="price">$<%=product.price.toFixed(2)%></p>
-      <p>Product Description</p>
-      <p><button>Add to Cart</button></p>
-    </div> 
-   <%});%>
+   <div class="row">
+    <% products.forEach(function(product){ %> 
+     <div class="col-sm-4">
+       <div class="product-card">
+         <img src="/static/images/<%= product.image %>" alt="Backpack Swag" height="150"/>
+         <h1><%= product.name %></h1>
+         <p class="price">$<%=product.price.toFixed(2)%></p>
+         <p><%=product.description %></p>
+         <p><button>Add to Cart</button></p>
+       </div> 
+     </div>
+    <%});%> 
+  </div>
   <footer class = "container-fluid text-center">
     <%-include ('footer.ejs') -%>
   </footer>

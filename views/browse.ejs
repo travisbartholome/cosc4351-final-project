@@ -9,6 +9,7 @@
   <%-include ('header.ejs') -%>
   </header>
    <div class="row">
+     <!-- lay bien products de bo vo bien moi ten product-->
     <% products.forEach(function(product){ %> 
      <div class="col-sm-4">
        <div class="product-card">
@@ -16,7 +17,7 @@
          <h1><%= product.name %></h1>
          <p class="price">$<%=product.price.toFixed(2)%></p>
          <p><%=product.description %></p>
-         <p><button>Add to Cart</button></p>
+         <p><button onclick="/cart?id=product.id">Add to Cart</button></p>
        </div> 
      </div>
     <%});%> 
@@ -24,5 +25,10 @@
   <footer class = "container-fluid text-center">
     <%-include ('footer.ejs') -%>
   </footer>
+  <script>
+    function cart(id) {
+
+    }
+  </script>
 </body>
 </html>

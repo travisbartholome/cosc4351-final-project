@@ -2,11 +2,14 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 
 // Create db connection
 const sequelize = new Sequelize(
-    process.env.DB_NAME,
-    process.env.DB_USER,
-    process.env.DB_PASS,
+    // process.env.DB_NAME,
+    // process.env.DB_USER,
+    // process.env.DB_PASS,
+    'cosc4351',
+    'postgres',
+    'admin',
     {
-        host: process.env.DB_HOST,
+        host: 'localhost',
         dialect: 'postgres',
         define: {
             timestamps: false

@@ -1,3 +1,5 @@
+-- NOTE: This file was used to populate our database with some dummy data
+
 -- Create DB
 CREATE DATABASE cosc4351;
 

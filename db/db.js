@@ -17,6 +17,10 @@ const sequelize = new Sequelize(
 // Product data model
 class Product extends Model { }
 Product.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+    },
     price: DataTypes.DOUBLE,
     name: DataTypes.STRING,
     description: DataTypes.STRING,
@@ -26,7 +30,10 @@ Product.init({
 // Cart data model
 class Cart extends Model {}
 Cart.init({
-    cart_id: DataTypes.INTEGER,
+    cart_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+    },
     session_key: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -36,6 +43,10 @@ Cart.init({
 // Cart item data model
 class CartItem extends Model {}
 CartItem.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+    },
     cart_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -46,12 +57,20 @@ CartItem.init({
     },
 }, { sequelize, modelName: 'cart_item' });
 
+// Set up model/table relations
+Cart.hasMany(CartItem, { foreignKey: 'cart_id' });
+CartItem.belongsTo(Cart, { foreignKey: 'cart_id' });
+Product.hasMany(CartItem, { foreignKey: 'id' });
+CartItem.belongsTo(Product, { foreignKey: 'product_id' });
+
 // Function for closing the database connection
 const close = () => {
     return sequelize.close();
 }
 
 module.exports = {
-    Product: Product,
-    close: close,
+    Product,
+    Cart,
+    CartItem,
+    close,
 };

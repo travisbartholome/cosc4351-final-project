@@ -1,6 +1,7 @@
 // Import dependencies
 const path = require('path');
 const express = require('express');
+const { Sequelize } = require('sequelize');
 const cookieParser = require('cookie-parser');
 
 // Add .env variables to environment
@@ -39,9 +40,47 @@ app.get('/', (req, res) => {
 
 // Route for cart page
 app.get('/cart', (req, res) => {
-  res.render('cart', {
-    // TODO: add cart data
-    cart: {},
+  // Get user ID from request obejct; if undefined, default to empty string
+  const userIdCookie = req.cookies.id || '';
+  
+  // Get cart information for the current user (with product information
+  // joined in) from the database
+  db.CartItem.findAll({
+    attributes: { exclude: ['id'] },
+    include: [
+      {
+        model: db.Cart,
+        where: {
+          session_key: userIdCookie,
+        },
+      },
+      {
+        model: db.Product,
+      },
+    ],
+    raw: true,
+  }).then(items => {
+    // Convert products information from DB to the usual products object format 
+    const products = items.map(item => ({
+      id: item['product.id'],
+      price: item['product.price'],
+      description: item['product.description'],
+      name: item['product.name'],
+      image: item['product.image'],
+    }));
+
+    // Sum up the price of all the cart items
+    const total = products.reduce((totalPrice, currentItem) => {
+      return totalPrice + currentItem.price;
+    }, 0);
+
+    // Render the cart view
+    res.render('cart', {
+      cart: {
+        products,
+        total,
+      },
+    });
   });
 });
 

@@ -12,6 +12,22 @@ describe('DB', () => {
         expect(value).toMatchSnapshot();
       });
   });
+
+  it('should have a Cart model with expected properties', () => {
+    return db.Cart
+      .findOne()
+      .then(value => {
+        expect(value).toMatchSnapshot();
+      })
+  });
+
+  it('should have a CartItem model with expected properties', () => {
+    return db.CartItem
+      .findOne()
+      .then(value => {
+        expect(value).toMatchSnapshot();
+      })
+  });
 });
 
 afterAll(() => {

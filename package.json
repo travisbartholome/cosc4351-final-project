@@ -4,7 +4,8 @@
   "description": "Semester project for COSC 4351 with Dr. Singh at the University of Houston, Spring 2020.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "jest --coverage"
   },
   "repository": {

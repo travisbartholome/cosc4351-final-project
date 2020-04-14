@@ -15,12 +15,28 @@ Object {
 }
 `;
 
-exports[`DB should return a product object with expected properties 1`] = `
+exports[`DB should have a Product model with expected properties 1`] = `
 Object {
   "description": "A product.",
   "id": 1,
   "image": "product1.jpg",
   "name": "Product 1",
   "price": 26.99,
+  "quantity": 7,
+}
+`;
+
+exports[`dbFunctions getUserCart should return cart items associated with a given user 1`] = `
+Object {
+  "products": Array [
+    Object {
+      "description": "Cheap product.",
+      "id": 4,
+      "image": "product4.jpg",
+      "name": "Product 4",
+      "price": 6,
+    },
+  ],
+  "total": 6,
 }
 `;

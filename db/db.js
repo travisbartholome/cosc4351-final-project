@@ -29,6 +29,7 @@ Product.init({
         primaryKey: true,
     },
     price: DataTypes.DOUBLE,
+    quantity: DataTypes.INTEGER,
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     image: DataTypes.STRING

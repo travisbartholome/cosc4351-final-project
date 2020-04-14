@@ -9,6 +9,7 @@ require('dotenv').config();
 
 // Import local dependencies
 const db = require('./db/db.js');
+const dbFunctions = require('./db/dbFunctions');
 const idCookiesMiddleware = require('./util/idCookies');
 
 // If environment defines a port, use it; if not, default to the standard 3000
@@ -31,55 +32,20 @@ app.set('view engine', 'ejs');
 // Set up main route for browse page
 app.get('/', (req, res) => {
   // Render the template with products data
-  db.Product.findAll({
-    raw: true
-  }).then(products => {
+  dbFunctions.getAllProducts().then(products => {
     res.render('browse', { products: products })
   });
 });
 
 // Route for cart page
 app.get('/cart', (req, res) => {
-  // Get user ID from request obejct; if undefined, default to empty string
+  // Get user ID from request object; if undefined, default to empty string
   const userIdCookie = req.cookies.id || '';
   
-  // Get cart information for the current user (with product information
-  // joined in) from the database
-  db.CartItem.findAll({
-    attributes: { exclude: ['id'] },
-    include: [
-      {
-        model: db.Cart,
-        where: {
-          session_key: userIdCookie,
-        },
-      },
-      {
-        model: db.Product,
-      },
-    ],
-    raw: true,
-  }).then(items => {
-    // Convert products information from DB to the usual products object format 
-    const products = items.map(item => ({
-      id: item['product.id'],
-      price: item['product.price'],
-      description: item['product.description'],
-      name: item['product.name'],
-      image: item['product.image'],
-    }));
-
-    // Sum up the price of all the cart items
-    const total = products.reduce((totalPrice, currentItem) => {
-      return totalPrice + currentItem.price;
-    }, 0);
-
+  dbFunctions.getUserCart(userIdCookie).then(cart => {
     // Render the cart view
     res.render('cart', {
-      cart: {
-        products,
-        total,
-      },
+      cart: cart,
     });
   });
 });

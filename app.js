@@ -8,13 +8,18 @@ require('dotenv').config();
 
 // Import local dependencies
 const db = require('./db/db.js');
+const dbFunctions = require('./db/dbFunctions');
 const idCookiesMiddleware = require('./util/idCookies');
+const apiRouter = require('./routers/api');
 
 // If environment defines a port, use it; if not, default to the standard 3000
 const PORT = process.env.PORT || 3000;
 
 // Create express app object
 const app = express();
+
+// Attach routers
+app.use('/api', apiRouter);
 
 // Attach middleware
 app.use(cookieParser()); // Parse cookie headers
@@ -30,10 +35,21 @@ app.set('view engine', 'ejs');
 // Set up main route for browse page
 app.get('/', (req, res) => {
   // Render the template with products data
-  db.Product.findAll({
-    raw: true
-  }).then(products => {
+  dbFunctions.getAllProducts().then(products => {
     res.render('browse', { products: products })
+  });
+});
+
+// Route for cart page
+app.get('/cart', (req, res) => {
+  // Get user ID from request object; if undefined, default to empty string
+  const userIdCookie = req.cookies.id || '';
+  
+  dbFunctions.getUserCart(userIdCookie).then(cart => {
+    // Render the cart view
+    res.render('cart', {
+      cart: cart,
+    });
   });
 });
 

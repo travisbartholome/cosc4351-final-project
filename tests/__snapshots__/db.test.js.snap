@@ -1,11 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DB should return a product object with expected properties 1`] = `
+exports[`DB should have a Cart model with expected properties 1`] = `
+Object {
+  "cart_id": 1,
+  "session_key": "eeb8076d-8e3f-408f-b79b-816bd4e836ed",
+}
+`;
+
+exports[`DB should have a CartItem model with expected properties 1`] = `
+Object {
+  "cart_id": 1,
+  "id": 1,
+  "product_id": 3,
+}
+`;
+
+exports[`DB should have a Product model with expected properties 1`] = `
 Object {
   "description": "A product.",
   "id": 1,
   "image": "product1.jpg",
   "name": "Product 1",
   "price": 26.99,
+  "quantity": 7,
+}
+`;
+
+exports[`dbFunctions getUserCart should return cart items associated with a given user 1`] = `
+Object {
+  "products": Array [
+    Object {
+      "description": "Cheap product.",
+      "id": 4,
+      "image": "product4.jpg",
+      "name": "Product 4",
+      "price": 6,
+    },
+  ],
+  "total": 6,
 }
 `;

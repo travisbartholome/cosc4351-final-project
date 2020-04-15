@@ -3,25 +3,30 @@
 <!-- stock head file that contains all pages metadata-->
 <head>
  <%-include ('head.ejs') -%> 
+ <link rel="stylesheet" href="/static/styles/browse.css" />
 </head>
 <body>
   <header>
-  <%-include ('header.ejs') -%>
+    <%-include ('header.ejs') -%>
   </header>
-   <div class="row">
-    <% products.forEach(function(product){ %> 
-     <div class="col-sm-4">
-       <div class="product-card">
-         <img src="/static/images/<%= product.image %>" alt="Backpack Swag" style="width:100%"/>
-         <h1><%= product.name %></h1>
-         <p class="price">$<%=product.price.toFixed(2)%></p>
-         <p><%=product.description %></p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-    <%});%> 
+  <div class="content-container">
+    <div class="row">
+      <% products.forEach(function(product){ %> 
+        <div class="col-sm-4">
+          <div class="product-card">
+            <div class="img-container">
+              <img class="product-image" src="/static/images/<%= product.image %>" alt="Swag image" />
+            </div>
+            <h1><%= product.name %></h1>
+            <p class="price">$<%=product.price.toFixed(2)%></p>
+            <p><%= product.description %></p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+      <%});%> 
+    </div>
   </div>
-  <footer class = "container-fluid text-center">
+  <footer class="container-fluid text-center">
     <%-include ('footer.ejs') -%>
   </footer>
 </body>

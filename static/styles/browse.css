@@ -1,0 +1,61 @@
+/* BEGIN PRODUCT CARD STYLE*/
+.product-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: 15px auto;
+  text-align: center;
+  font-family: Sans-Serif;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.product-card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.product-card button:hover {
+  opacity: 0.50;
+}
+
+.product-image {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+/*END PRODUCT CARD STYLE*/
+
+/* General layout styles */
+
+body {
+  padding-top: 70px; /* Compensate for Bootstrap nav height */
+}
+
+@media screen and (max-width: 768px) {
+  /* Extra compensation required on small widths */
+  /* Bootstrap switches to "mobile" at width of 768px */
+  body {
+    padding-top: 320px;
+  }
+}
+
+.content-container {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.img-container {
+  height: 250px;
+  padding: 10px;
+  width: 100%;
+}

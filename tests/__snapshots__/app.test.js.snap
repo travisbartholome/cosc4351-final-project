@@ -31,9 +31,9 @@ exports[`App views should render the checkout page successfully 2`] = `"<p>Total
 exports[`App views should render the root/browse page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "6308",
+  "content-length": "6805",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"18a4-lPWuiGqFv2mj6XwMlLFtnAaRM9s\\"",
+  "etag": "W/\\"1a95-IfqoBpQQygAVPisr//eJuIltS/g\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -53,43 +53,12 @@ exports[`App views should render the root/browse page successfully 2`] = `
 <script src=\\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\\"></script>
 <script src=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\\"></script>
 <link href=\\"https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css\\" rel=\\"stylesheet\\">
-<style> 
- /* BEGIN PRODUCT CARD STYLE*/
-.product-card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  font-family: Sans-Serif;
-}
-
-.price {
-  color: grey;
-  font-size: 22px;
-}
-
-.product-card button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
-
-.product-card button:hover {
-  opacity: 0.50;
-}
-/*END PRODUCT CARD STYLE*/
-</style> 
-  
+ 
+ <link rel=\\"stylesheet\\" href=\\"/static/styles/browse.css\\" />
 </head>
 <body>
   <header>
-  <!-- views/header.ejs -->
+    <!-- views/header.ejs -->
 <!-- creates inverted (black) navigation bar w/ top that is fixed-->
 <nav class=\\"navbar navbar-inverse navbar-fixed-top\\">
 <!-- \\"container-fluid => takes full width-->
@@ -121,110 +90,132 @@ exports[`App views should render the root/browse page successfully 2`] = `
 </div>
 </nav>
   </header>
-   <div class=\\"row\\">
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product1.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 1</h1>
-         <p class=\\"price\\">$26.99</p>
-         <p>A product.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product2.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 2</h1>
-         <p class=\\"price\\">$9.99</p>
-         <p>Another product.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product3.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 3</h1>
-         <p class=\\"price\\">$10.50</p>
-         <p>Wow, that&#39;s some product.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product4.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 4</h1>
-         <p class=\\"price\\">$6.00</p>
-         <p>Cheap product.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product5.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 5</h1>
-         <p class=\\"price\\">$56.00</p>
-         <p>Expensive product.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product6.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 6</h1>
-         <p class=\\"price\\">$31.26</p>
-         <p>Man we&#39;re kind of running out of these, huh?</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product7.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 7</h1>
-         <p class=\\"price\\">$5.49</p>
-         <p>Oh wow this is even cheaper.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product8.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 8</h1>
-         <p class=\\"price\\">$10.69</p>
-         <p>Nice.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product9.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 9</h1>
-         <p class=\\"price\\">$0.99</p>
-         <p>Dollar store shelf material v2.0.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
-     <div class=\\"col-sm-4\\">
-       <div class=\\"product-card\\">
-         <img src=\\"/static/images/product10.jpg\\" alt=\\"Backpack Swag\\" style=\\"width:100%\\"/>
-         <h1>Product 10</h1>
-         <p class=\\"price\\">$12.00</p>
-         <p>Just your average product.</p>
-         <p><button>Add to Cart</button></p>
-       </div> 
-     </div>
-     
+  <div class=\\"content-container\\">
+    <div class=\\"row\\">
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product1.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 1</h1>
+            <p class=\\"price\\">$26.99</p>
+            <p>A product.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product2.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 2</h1>
+            <p class=\\"price\\">$9.99</p>
+            <p>Another product.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product3.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 3</h1>
+            <p class=\\"price\\">$10.50</p>
+            <p>Wow, that&#39;s some product.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product4.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 4</h1>
+            <p class=\\"price\\">$6.00</p>
+            <p>Cheap product.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product5.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 5</h1>
+            <p class=\\"price\\">$56.00</p>
+            <p>Expensive product.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product6.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 6</h1>
+            <p class=\\"price\\">$31.26</p>
+            <p>Man we&#39;re kind of running out of these, huh?</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product7.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 7</h1>
+            <p class=\\"price\\">$5.49</p>
+            <p>Oh wow this is even cheaper.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product8.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 8</h1>
+            <p class=\\"price\\">$10.69</p>
+            <p>Nice.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product9.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 9</h1>
+            <p class=\\"price\\">$0.99</p>
+            <p>Dollar store shelf material v2.0.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+        <div class=\\"col-sm-4\\">
+          <div class=\\"product-card\\">
+            <div class=\\"img-container\\">
+              <img class=\\"product-image\\" src=\\"/static/images/product10.jpg\\" alt=\\"Swag image\\" />
+            </div>
+            <h1>Product 10</h1>
+            <p class=\\"price\\">$12.00</p>
+            <p>Just your average product.</p>
+            <p><button>Add to Cart</button></p>
+          </div> 
+        </div>
+       
+    </div>
   </div>
-  <footer class = \\"container-fluid text-center\\">
+  <footer class=\\"container-fluid text-center\\">
     
 <p>© 2020 Copyright: Le-Bartholome-Habib</p>
   

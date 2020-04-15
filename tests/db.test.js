@@ -72,6 +72,105 @@ describe('dbFunctions', () => {
       });
     });
   });
+
+  describe('addItemToCart', () => {
+    const userIdCookieExisting = 'addItemToExistingCartTest';
+    const userIdCookieNew = 'addItemToNewCartTest';
+
+    beforeAll(() => {
+      // Insert cart entry and cart item entry for the "pre-existing cart" test cookie
+      return db.Cart.create({
+        session_key: userIdCookieExisting,
+      })
+      .then(newCart => {
+        return db.CartItem.create({
+          cart_id: newCart.getDataValue('cart_id'),
+          product_id: 7,
+        });
+      });
+    });
+
+    it('should add a cart_items entry when the user\'s cart already exists', () => {
+      return dbFunctions.addItemToCart(5, userIdCookieExisting).then(result => {
+        expect(result.session_key).toEqual(userIdCookieExisting);
+        
+        // Cart should have two items: product 7 (inserted in beforeAll) and
+        // product 5 (inserted in this test block)
+        const { products } = result.cart;
+        expect(products).toHaveLength(2);
+        expect(products.some(product => product.id === 5)).toBe(true);
+        expect(products.some(product => product.id === 7)).toBe(true);
+
+        // Clean up generated test data
+        // First, clean up cart_items entries
+        return db.CartItem.destroy({
+          where: {
+            cart_id: result.cart_id,
+          }
+        })
+        .then(() => {
+          // Clean up generated entries in the carts table
+          return db.Cart.destroy({
+            where: {
+              cart_id: result.cart_id,
+            },
+          });
+        });
+      });
+    });
+
+    it('should add a cart_items entry when the user\'s cart does not already exist', () => {
+      return dbFunctions.addItemToCart(3, userIdCookieNew).then(result => {
+        expect(result.session_key).toEqual(userIdCookieNew);
+        
+        // Cart should have two items: product 7 (inserted in beforeAll) and
+        // product 5 (inserted in this test block)
+        const { products } = result.cart;
+        expect(products).toHaveLength(1);
+        expect(products[0].id).toEqual(3);
+
+        // Clean up generated test data
+        // First, clean up cart_items entries
+        return db.CartItem.destroy({
+          where: {
+            cart_id: result.cart_id,
+          }
+        })
+        .then(() => {
+          // Clean up generated entries in the carts table
+          return db.Cart.destroy({
+            where: {
+              cart_id: result.cart_id,
+            },
+          });
+        });
+      });
+    });
+
+    afterAll(() => {
+      // Clean up generated test data
+      // First, clean up cart_items entries
+      return db.CartItem.destroy({
+        where: {
+          [Op.or]: [
+            { cart_id: cartIdExisting },
+            { cart_id: cartIdNew }
+          ],
+        }
+      })
+      .then(() => {
+        // Clean up generated entries in the carts table
+        return db.Cart.destroy({
+          where: {
+            [Op.or]: [
+              { cart_id: cartIdExisting },
+              { cart_id: cartIdNew }
+            ],
+          },
+        });
+      });
+    });
+  });
 });
 
 afterAll(() => {

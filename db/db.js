@@ -17,7 +17,8 @@ const sequelize = new Sequelize(
         ssl: true,
         define: {
             timestamps: false
-        }
+        },
+        logging: () => {}, // Turn off sequelize console logging
     }
 );
 
@@ -41,6 +42,7 @@ Cart.init({
     cart_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     session_key: {
         type: DataTypes.STRING,
@@ -54,6 +56,7 @@ CartItem.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     cart_id: {
         type: DataTypes.INTEGER,

@@ -47,7 +47,34 @@ const getUserCart = userIdCookie => {
   });
 };
 
+// Add an item to the current user's cart
+// Returns the new cart for that user along with some query metadata
+const addItemToCart = (productId, userIdCookie) => {
+  // If the user doesn't already have a cart, we should create a new one for them
+  return db.Cart.findOrCreate({
+    where: {
+      session_key: userIdCookie,
+    },
+  })
+  .then(([cartData, cartCreated]) => {
+    // Insert the newly added item into cart_items
+    // Associate it with the found (or newly created) cart
+    return db.CartItem.create({
+      cart_id: cartData.getDataValue('cart_id'),
+      product_id: productId,
+    });
+  })
+  .then((cartItem) => {
+    return getUserCart(userIdCookie).then(userCart => ({
+      cart: userCart,
+      cart_id: cartItem.getDataValue('cart_id'),
+      session_key: userIdCookie,
+    }));
+  });
+};
+
 module.exports = {
   getAllProducts,
   getUserCart,
+  addItemToCart,
 };

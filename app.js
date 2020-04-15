@@ -11,12 +11,16 @@ require('dotenv').config();
 const db = require('./db/db.js');
 const dbFunctions = require('./db/dbFunctions');
 const idCookiesMiddleware = require('./util/idCookies');
+const apiRouter = require('./routers/api');
 
 // If environment defines a port, use it; if not, default to the standard 3000
 const PORT = process.env.PORT || 3000;
 
 // Create express app object
 const app = express();
+
+// Attach routers
+app.use('/api', apiRouter);
 
 // Attach middleware
 app.use(cookieParser()); // Parse cookie headers

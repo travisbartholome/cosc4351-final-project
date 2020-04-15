@@ -45,3 +45,7 @@ DB_HOST=your_db_host
 DB_USER=your_db_user
 DB_PASS=your_db_password
 ```
+
+## Attributions
+
+Free stock photos found on https://www.pexels.com.

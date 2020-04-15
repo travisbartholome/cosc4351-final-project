@@ -38,5 +38,8 @@
     "coverageReporters": [
       "text"
     ]
+  },
+  "nodemonConfig": {
+    "ext": "js,ejs,json,css"
   }
 }

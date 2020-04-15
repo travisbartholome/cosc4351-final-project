@@ -1,7 +1,6 @@
 // Import dependencies
 const path = require('path');
 const express = require('express');
-const { Sequelize } = require('sequelize');
 const cookieParser = require('cookie-parser');
 
 // Add .env variables to environment

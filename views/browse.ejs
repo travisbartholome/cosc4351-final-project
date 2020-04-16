@@ -20,7 +20,7 @@
             <h1><%= product.name %></h1>
             <p class="price">$<%=product.price.toFixed(2)%></p>
             <p><%= product.description %></p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick="add_to_cart(<%= product.id %>)">Add to Cart</button></p>
           </div> 
         </div>
       <%});%> 
@@ -29,5 +29,25 @@
   <footer class="container-fluid text-center">
     <%-include ('footer.ejs') -%>
   </footer>
+  <script>
+    function add_to_cart(id) {
+      $.ajax({
+        url: '/add',
+        type: 'get',
+        data: {
+          id
+        },
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          console.log(data.result.length);
+          $('.badge').text(data.result.length)
+        },
+        error: function(err) {
+          console.log(err);
+        }
+      })
+    }
+  </script>
 </body>
 </html>

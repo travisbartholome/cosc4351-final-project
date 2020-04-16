@@ -8,16 +8,16 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         dialect: 'postgres',
-        dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false, // See https://github.com/brianc/node-postgres/issues/2009
-            },
-        },
-        ssl: true,
-        define: {
-            timestamps: false
-        },
+        // dialectOptions: {
+        //     ssl: {
+        //         require: false,
+        //         rejectUnauthorized: false, // See https://github.com/brianc/node-postgres/issues/2009
+        //     },
+        // },
+        // ssl: false,
+        // define: {
+        //     timestamps: false
+        // },
         logging: () => {}, // Turn off sequelize console logging
     }
 );
@@ -66,6 +66,10 @@ CartItem.init({
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    }
 }, { sequelize, modelName: 'cart_item' });
 
 // Set up model/table relations
@@ -83,5 +87,6 @@ module.exports = {
     Product,
     Cart,
     CartItem,
+    sequelize,
     close,
 };

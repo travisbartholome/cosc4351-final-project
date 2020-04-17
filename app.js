@@ -2,7 +2,6 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
 const USPS = require('usps-webtools');
 
 // Add .env variables to environment
@@ -26,7 +25,6 @@ app.use('/api', apiRouter);
 // Attach middleware
 app.use(cookieParser()); // Parse cookie headers
 app.use(idCookiesMiddleware); // Attach ID cookies when needed
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
 
 // Set up express to serve static files from the /static directory
 app.use('/static', express.static(path.join(__dirname, 'static')));
@@ -37,32 +35,31 @@ app.set('view engine', 'ejs');
 
 // Set up main route for browse page
 app.get('/', async (req, res) => {
-  req.session.cart_id = '1'; // TODO: implement get card_id from session_id
-  cart_id = req.session.cart_id;
-
-  cart_items = await dbFunctions.getCartItems(cart_id);
-  products = await dbFunctions.getAllProducts();
-
   // Render the template with products data
-  res.render('browse', { products, cart_items });
+  const products = await dbFunctions.getAllProducts();
+  const cart = await dbFunctions.getUserCart(req.cookies.id || '');
+  
+  res.render('browse', { products, cart });
 });
 
 // Route for cart page
-app.get('/cart', async (req, res) => {
-  cart_id = req.session.cart_id || 1;
-
-  cart_items = await dbFunctions.getCartItems(cart_id);
-  const total = cart_items.reduce((totalPrice, currentItem) => {
-    return totalPrice + currentItem['product.price'] * currentItem.quantity;
-  }, 0);
-
-  res.render('cart', { cart_items, total });
+app.get('/cart', (req, res) => {
+  // Get user ID from request object; if undefined, default to empty string
+  const userIdCookie = req.cookies.id || '';
+  
+  dbFunctions.getUserCart(userIdCookie).then(cart => {
+    // Render the cart view
+    res.render('cart', {
+      cart: cart,
+    });
+  });
 });
 
 // Route for checkout page
-app.get('/checkout', (req, res) => {
-  res.render('checkout', { total: 1200 })
-});
+app.get('/checkout', async (req, res) => {
+  const cart = await dbFunctions.getUserCart(req.cookies.id || '');
+  res.render('checkout', { cart });
+}); 
 
 app.get('/validate', (req, res) => {
   const street1 =  req.query.street1;
@@ -84,6 +81,7 @@ app.get('/validate', (req, res) => {
     state: state,
     zip: zipcode
   }, function(err, address) {
+    // TODO: rather than redirecting here, just return whether or not the address was valid
     if (address) {
       res.redirect('/success');
     } else {
@@ -99,23 +97,6 @@ app.get('/success', (req, res) => {
 
 app.get('/error', (req, res) => {
   res.render('error')
-});
-
-app.get('/add', async (req, res) => {
-  const product_id = req.query.id;
-  const cart_id = req.session.cart_id || 1;
-
-  product = await dbFunctions.getCartItem(cart_id, product_id);
-  
-  if (product) {
-    await dbFunctions.increaseQuantityByOne(cart_id, product_id);
-  } else {
-    await dbFunctions.addProductToCart(cart_id, product_id, 1);
-  }
-
-  products = await dbFunctions.getCartItems(cart_id);
-
-  res.send({ result: products })
 });
 
 // Set the app to listen on a network port

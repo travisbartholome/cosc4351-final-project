@@ -8,16 +8,16 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         dialect: 'postgres',
-        // dialectOptions: {
-        //     ssl: {
-        //         require: false,
-        //         rejectUnauthorized: false, // See https://github.com/brianc/node-postgres/issues/2009
-        //     },
-        // },
-        // ssl: false,
-        // define: {
-        //     timestamps: false
-        // },
+        dialectOptions: {
+            ssl: {
+                require: false,
+                rejectUnauthorized: false, // See https://github.com/brianc/node-postgres/issues/2009
+            },
+        },
+        ssl: false,
+        define: {
+            timestamps: false
+        },
         logging: () => {}, // Turn off sequelize console logging
     }
 );
@@ -68,6 +68,7 @@ CartItem.init({
     },
     quantity: {
         type: DataTypes.INTEGER,
+        defaultValue: 1,
         allowNull: false,
     }
 }, { sequelize, modelName: 'cart_item' });

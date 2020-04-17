@@ -2,6 +2,7 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const USPS = require('usps-webtools');
 
 // Add .env variables to environment
 require('dotenv').config();
@@ -33,11 +34,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Set up main route for browse page
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   // Render the template with products data
-  dbFunctions.getAllProducts().then(products => {
-    res.render('browse', { products: products })
-  });
+  const products = await dbFunctions.getAllProducts();
+  const cart = await dbFunctions.getUserCart(req.cookies.id || '');
+  
+  res.render('browse', { products, cart });
 });
 
 // Route for cart page
@@ -54,8 +56,47 @@ app.get('/cart', (req, res) => {
 });
 
 // Route for checkout page
-app.get('/checkout', (req, res) => {
-  res.render('checkout', { total: 1200 })
+app.get('/checkout', async (req, res) => {
+  const cart = await dbFunctions.getUserCart(req.cookies.id || '');
+  res.render('checkout', { cart });
+}); 
+
+app.get('/validate', (req, res) => {
+  const street1 =  req.query.street1;
+  const street2 =  req.query.street2;
+  const city  = req.query.city;
+  const state = req.query.state;
+  const zipcode = req.query.zipcode;
+
+  const usps = new USPS({
+    server: 'http://production.shippingapis.com/ShippingAPI.dll',
+    userId: process.env.DB_USPS,
+    ttl: 10000 //TTL in milliseconds for request
+  });
+
+  usps.verify({
+    street1: street1,
+    street2: street2,
+    city: city,
+    state: state,
+    zip: zipcode
+  }, function(err, address) {
+    // TODO: rather than redirecting here, just return whether or not the address was valid
+    if (address) {
+      res.redirect('/success');
+    } else {
+      res.redirect('/error');
+    }
+  });
+
+});
+
+app.get('/success', (req, res) => {
+  res.render('success')
+});
+
+app.get('/error', (req, res) => {
+  res.render('error')
 });
 
 // Set the app to listen on a network port

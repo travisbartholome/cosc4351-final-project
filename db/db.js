@@ -66,6 +66,11 @@ CartItem.init({
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    quantity: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+    }
 }, { sequelize, modelName: 'cart_item' });
 
 // Set up model/table relations
@@ -83,5 +88,6 @@ module.exports = {
     Product,
     Cart,
     CartItem,
+    sequelize,
     close,
 };

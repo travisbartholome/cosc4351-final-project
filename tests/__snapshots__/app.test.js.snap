@@ -3,37 +3,232 @@
 exports[`App views should render the cart page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "220",
+  "content-length": "2686",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"dc-cleHWUz5VZ3hXK92DHFx+Ux4+Ig\\"",
+  "etag": "W/\\"a7e-YzicauCofESj6r+cfcaSuOJF/Ao\\"",
   "x-powered-by": "Express",
 }
 `;
 
 exports[`App views should render the cart page successfully 2`] = `
-"<!-- Placeholder -->
-{&#34;products&#34;:[{&#34;id&#34;:4,&#34;price&#34;:6,&#34;description&#34;:&#34;Cheap product.&#34;,&#34;name&#34;:&#34;Product 4&#34;,&#34;image&#34;:&#34;product4.jpg&#34;}],&#34;total&#34;:6}
+"<!DOCTYPE html>
+<html>
+<!-- stock head file that contains all pages metadata-->
+<head>
+ <!-- stock head file that contains all pages metadata-->
+<title>COSC4351 Bartholome-Le-Habib Ecommerce Store</title>
+<meta charset=\\"utf-8\\">
+<!--Automatically re-adjusts view based on device dimensions-->
+<meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+<!--Loading CSS from Bootstrap CDN-->
+<link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\">
+<script src=\\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\\"></script>
+<script src=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\\"></script>
+<link href=\\"https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css\\" rel=\\"stylesheet\\">
+ 
+ <link rel=\\"stylesheet\\" href=\\"/static/styles/browse.css\\" />
+</head>
+<body>
+  <header>
+    <!-- views/header.ejs -->
+<!-- creates inverted (black) navigation bar w/ top that is fixed-->
+<nav class=\\"navbar navbar-inverse navbar-fixed-top\\">
+<!-- \\"container-fluid => takes full width-->
+<div class=\\"container-fluid\\">
+    <div class=\\"navbar-header\\">
+    <a class=\\"navbar-brand\\" href=\\"/\\"><span class=\\"glyphicon glyphicon-sunglasses\\"></span> Swag Store</a>
+    </div>
+    <ul class=\\"nav navbar-nav\\">
+    <!-- Add in hyper link to potential Browse page-->
+    <li class=\\"active\\"><a href=\\"/\\">Browse</a></li>
+    <!-- Add in hyper link to Browse page -->
+    <li><a href=\\"#\\">About Us</a></li>
+    </ul>
+    <ul class=\\"nav navbar-nav navbar-right\\">
+    <!-- Add links to checkout and cart pages?-->
+    <li>
+        <a href=\\"/cart\\">
+            <span class=\\"glyphicon glyphicon-shopping-cart\\"></span>
+            Cart
+            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">1</span>
+        </a>
+    </li>
+    <li><a href=\\"/checkout\\"><span class=\\"glyphicon glyphicon-log-in\\"></span> Checkout</a></li>
+    </ul>
+    <form class=\\"navbar-form navbar-right\\" >
+    <div class=\\"input-group\\">
+        <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Search\\" name=\\"search\\">
+        <div class=\\"input-group-btn\\">
+        <button class=\\"btn btn-default\\" type=\\"submit\\">
+            <i class=\\"glyphicon glyphicon-search\\"></i>
+        </button>
+        </div>
+    </div>
+    </form>
+</div>
+</nav>
+  </header>
+  <div class=\\"content-container\\">
+    <div class=\\"row\\">
+    </div>
+    Total: 6
+    <br>
+    <button type=\\"button\\" class=\\"btn btn-secondary\\"><a href=\\"/checkout\\">Checkout</a></button>
+  </div>
+  <footer class=\\"container-fluid text-center\\">
+    
+<p>© 2020 Copyright: Le-Bartholome-Habib</p>
+  
+
+  </footer>
+  </body>
+</html>
 "
 `;
 
 exports[`App views should render the checkout page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "18",
+  "content-length": "5901",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"12-eMSL0FrAQMaqAs8n+jN4w6wC8Zo\\"",
+  "etag": "W/\\"170d-032o5mMEYPxzPkdIQxb580d8CTU\\"",
   "x-powered-by": "Express",
 }
 `;
 
-exports[`App views should render the checkout page successfully 2`] = `"<p>Total: 1200</p>"`;
+exports[`App views should render the checkout page successfully 2`] = `
+"<!DOCTYPE html>
+<html>
+<!-- stock head file that contains all pages metadata-->
+<head>
+ <!-- stock head file that contains all pages metadata-->
+<title>COSC4351 Bartholome-Le-Habib Ecommerce Store</title>
+<meta charset=\\"utf-8\\">
+<!--Automatically re-adjusts view based on device dimensions-->
+<meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+<!--Loading CSS from Bootstrap CDN-->
+<link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\">
+<script src=\\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\\"></script>
+<script src=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\\"></script>
+<link href=\\"https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css\\" rel=\\"stylesheet\\">
+ 
+ <link rel=\\"stylesheet\\" href=\\"/static/styles/browse.css\\" />
+</head>
+<body>
+  <header>
+    <!-- views/header.ejs -->
+<!-- creates inverted (black) navigation bar w/ top that is fixed-->
+<nav class=\\"navbar navbar-inverse navbar-fixed-top\\">
+<!-- \\"container-fluid => takes full width-->
+<div class=\\"container-fluid\\">
+    <div class=\\"navbar-header\\">
+    <a class=\\"navbar-brand\\" href=\\"/\\"><span class=\\"glyphicon glyphicon-sunglasses\\"></span> Swag Store</a>
+    </div>
+    <ul class=\\"nav navbar-nav\\">
+    <!-- Add in hyper link to potential Browse page-->
+    <li class=\\"active\\"><a href=\\"/\\">Browse</a></li>
+    <!-- Add in hyper link to Browse page -->
+    <li><a href=\\"#\\">About Us</a></li>
+    </ul>
+    <ul class=\\"nav navbar-nav navbar-right\\">
+    <!-- Add links to checkout and cart pages?-->
+    <li>
+        <a href=\\"/cart\\">
+            <span class=\\"glyphicon glyphicon-shopping-cart\\"></span>
+            Cart
+            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">1</span>
+        </a>
+    </li>
+    <li><a href=\\"/checkout\\"><span class=\\"glyphicon glyphicon-log-in\\"></span> Checkout</a></li>
+    </ul>
+    <form class=\\"navbar-form navbar-right\\" >
+    <div class=\\"input-group\\">
+        <input type=\\"text\\" class=\\"form-control\\" placeholder=\\"Search\\" name=\\"search\\">
+        <div class=\\"input-group-btn\\">
+        <button class=\\"btn btn-default\\" type=\\"submit\\">
+            <i class=\\"glyphicon glyphicon-search\\"></i>
+        </button>
+        </div>
+    </div>
+    </form>
+</div>
+</nav>
+  </header>
+  <div class=\\"content-container\\">
+    <form action=\\"validate\\" method=\\"GET\\">
+        <div class=\\"container py-5\\">
+            <div class=\\"row\\">
+                <div class=\\"col-md-10 mx-auto\\">
+                    <form>
+                        <div class=\\"form-group row\\">
+                            <div class=\\"col-sm-6\\">
+                                <label for=\\"inputFirstname\\">First name</label>
+                                <input type=\\"text\\" class=\\"form-control\\" id=\\"inputFirstname\\" placeholder=\\"First name\\">
+                            </div>
+                            <div class=\\"col-sm-6\\">
+                                <label for=\\"inputLastname\\">Last name</label>
+                                <input type=\\"text\\" class=\\"form-control\\" id=\\"inputLastname\\" placeholder=\\"Last name\\">
+                            </div>
+                        </div>
+                        <div class=\\"form-group row\\">
+                            <div class=\\"col-sm-6\\">
+                                <label for=\\"inputAddressLine1\\">Address</label>
+                                <input type=\\"text\\" class=\\"form-control\\" id=\\"inputAddressLine1\\" placeholder=\\"Street Address\\" name=\\"street1\\">
+                            </div>
+                            <div class=\\"col-sm-6\\">
+                                <label for=\\"inputAddressLine2\\">Address (Line 2)</label>
+                                <input type=\\"text\\" class=\\"form-control\\" id=\\"inputAddressLine2\\" placeholder=\\"Line 2\\" name=\\"street2\\">
+                            </div>
+                        </div>
+                        <div class=\\"form-group row\\">
+                            <div class=\\"col-sm-6\\">
+                                <label for=\\"inputCity\\">City</label>
+                                <input type=\\"text\\" class=\\"form-control\\" id=\\"inputCity\\" placeholder=\\"City\\" name=\\"city\\">
+                            </div>
+                            <div class=\\"col-sm-3\\">
+                                <label for=\\"inputState\\">State</label>
+                                <input type=\\"text\\" class=\\"form-control\\" id=\\"inputState\\" placeholder=\\"State\\" name=\\"state\\">
+                            </div>
+                            <div class=\\"col-sm-3\\">
+                                <label for=\\"inputPostalCode\\">Postal Code</label>
+                                <input type=\\"text\\" class=\\"form-control\\" id=\\"inputPostalCode\\" placeholder=\\"Postal Code\\" name=\\"zipcode\\">
+                            </div>
+                        </div>
+                        <div class=\\"form-group row\\">
+                            <div class=\\"col-sm-6\\">
+                                <label for=\\"inputContactNumber\\">Contact Number</label>
+                                <input type=\\"number\\" class=\\"form-control\\" id=\\"inputContactNumber\\" placeholder=\\"Contact Number\\">
+                            </div>
+                            <div class=\\"col-sm-6\\">
+                                <label for=\\"inputWEmail\\">Email</label>
+                                <input type=\\"text\\" class=\\"form-control\\" id=\\"inputEmail\\" placeholder=\\"Email\\">
+                            </div>
+                        </div>
+                        <button type=\\"submit\\" class=\\"btn btn-primary px-4 float-right\\">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form> 
+
+  </div>
+  <footer class=\\"container-fluid text-center\\">
+    
+<p>© 2020 Copyright: Le-Bartholome-Habib</p>
+  
+
+  </footer>
+  </body>
+</html>
+"
+`;
 
 exports[`App views should render the root/browse page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "6805",
+  "content-length": "7546",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"1a95-IfqoBpQQygAVPisr//eJuIltS/g\\"",
+  "etag": "W/\\"1d7a-RiG6+dsJ9GofwVti99eWs1ul4OE\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -64,7 +259,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
 <!-- \\"container-fluid => takes full width-->
 <div class=\\"container-fluid\\">
     <div class=\\"navbar-header\\">
-    <a class=\\"navbar-brand\\" href=\\"#\\"><span class=\\"glyphicon glyphicon-sunglasses\\"></span> Swag Store</a>
+    <a class=\\"navbar-brand\\" href=\\"/\\"><span class=\\"glyphicon glyphicon-sunglasses\\"></span> Swag Store</a>
     </div>
     <ul class=\\"nav navbar-nav\\">
     <!-- Add in hyper link to potential Browse page-->
@@ -74,7 +269,13 @@ exports[`App views should render the root/browse page successfully 2`] = `
     </ul>
     <ul class=\\"nav navbar-nav navbar-right\\">
     <!-- Add links to checkout and cart pages?-->
-    <li><a href=\\"#\\"><span class=\\"glyphicon glyphicon-shopping-cart\\"></span> Cart</a></li>
+    <li>
+        <a href=\\"/cart\\">
+            <span class=\\"glyphicon glyphicon-shopping-cart\\"></span>
+            Cart
+            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">1</span>
+        </a>
+    </li>
     <li><a href=\\"/checkout\\"><span class=\\"glyphicon glyphicon-log-in\\"></span> Checkout</a></li>
     </ul>
     <form class=\\"navbar-form navbar-right\\" >
@@ -101,7 +302,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 1</h1>
             <p class=\\"price\\">$26.99</p>
             <p>A product.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('1')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -113,7 +314,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 2</h1>
             <p class=\\"price\\">$9.99</p>
             <p>Another product.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('2')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -125,7 +326,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 3</h1>
             <p class=\\"price\\">$10.50</p>
             <p>Wow, that&#39;s some product.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('3')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -137,7 +338,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 4</h1>
             <p class=\\"price\\">$6.00</p>
             <p>Cheap product.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('4')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -149,7 +350,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 5</h1>
             <p class=\\"price\\">$56.00</p>
             <p>Expensive product.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('5')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -161,7 +362,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 6</h1>
             <p class=\\"price\\">$31.26</p>
             <p>Man we&#39;re kind of running out of these, huh?</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('6')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -173,7 +374,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 7</h1>
             <p class=\\"price\\">$5.49</p>
             <p>Oh wow this is even cheaper.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('7')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -185,7 +386,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 8</h1>
             <p class=\\"price\\">$10.69</p>
             <p>Nice.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('8')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -197,7 +398,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 9</h1>
             <p class=\\"price\\">$0.99</p>
             <p>Dollar store shelf material v2.0.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('9')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -209,7 +410,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
             <h1>Product 10</h1>
             <p class=\\"price\\">$12.00</p>
             <p>Just your average product.</p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick=\\"add_to_cart('10')\\">Add to Cart</button></p>
           </div> 
         </div>
        
@@ -221,6 +422,18 @@ exports[`App views should render the root/browse page successfully 2`] = `
   
 
   </footer>
+  <script>
+    function add_to_cart(id) {
+      console.log(id);
+
+      $.post('/api/cart/add', { productId: id }, (data, status) => {
+        // Handle response data, or do nothing
+        console.log(data);
+        console.log(status);
+        $('#badge-cart-size').text(data.products.length);
+      });
+    }
+  </script>
 </body>
 </html>
 "

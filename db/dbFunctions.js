@@ -7,6 +7,13 @@ const getAllProducts = () => {
   });
 };
 
+const increaseQuantityByOne = (cart_id, product_id) => {
+  return db.CartItem.update(
+    { quantity: db.sequelize.literal('quantity + 1') }, 
+    { where: { cart_id, product_id },
+  });
+}
+
 // Get cart information for the current user (with product information
 // joined in) from the database
 const getUserCart = userIdCookie => {
@@ -75,6 +82,7 @@ const addItemToCart = (productId, userIdCookie) => {
 
 module.exports = {
   getAllProducts,
+  increaseQuantityByOne,
   getUserCart,
   addItemToCart,
 };

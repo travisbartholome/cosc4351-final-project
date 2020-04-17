@@ -27,6 +27,7 @@
     "pg": "^8.0.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.6",
+    "usps-webtools": "^1.0.3",
     "uuid": "^7.0.3"
   },
   "devDependencies": {

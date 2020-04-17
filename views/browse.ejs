@@ -20,7 +20,7 @@
             <h1><%= product.name %></h1>
             <p class="price">$<%=product.price.toFixed(2)%></p>
             <p><%= product.description %></p>
-            <p><button>Add to Cart</button></p>
+            <p><button onclick="add_to_cart('<%= product.id %>')">Add to Cart</button></p>
           </div> 
         </div>
       <%});%> 
@@ -29,5 +29,17 @@
   <footer class="container-fluid text-center">
     <%-include ('footer.ejs') -%>
   </footer>
+  <script>
+    function add_to_cart(id) {
+      console.log(id);
+
+      $.post('/api/cart/add', { productId: id }, (data, status) => {
+        // Handle response data, or do nothing
+        console.log(data);
+        console.log(status);
+        $('#badge-cart-size').text(data.products.length);
+      });
+    }
+  </script>
 </body>
 </html>

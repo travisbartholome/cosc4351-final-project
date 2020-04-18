@@ -36,6 +36,7 @@ Object {
       "image": "product4.jpg",
       "name": "Product 4",
       "price": 6,
+      "quantity": 1,
     },
   ],
   "total": 6,

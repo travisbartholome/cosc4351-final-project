@@ -76,6 +76,7 @@ describe('dbFunctions', () => {
   describe('addItemToCart', () => {
     const userIdCookieExisting = 'addItemToExistingCartTest';
     const userIdCookieNew = 'addItemToNewCartTest';
+    const userIdCookieQuantityUpdate = 'addItemUpdateQuantityTest';
 
     beforeAll(() => {
       // Insert cart entry and cart item entry for the "pre-existing cart" test cookie
@@ -86,6 +87,17 @@ describe('dbFunctions', () => {
         return db.CartItem.create({
           cart_id: newCart.getDataValue('cart_id'),
           product_id: 7,
+        });
+      }) // Next, insert cart entry and item for the "pre-existing cart item" test
+      .then(() => {
+        return db.Cart.create({
+          session_key: userIdCookieQuantityUpdate,
+        });
+      })
+      .then(newCart => {
+        return db.CartItem.create({
+          cart_id: newCart.getDataValue('cart_id'),
+          product_id: 9,
         });
       });
     });
@@ -104,16 +116,12 @@ describe('dbFunctions', () => {
         // Clean up generated test data
         // First, clean up cart_items entries
         return db.CartItem.destroy({
-          where: {
-            cart_id: result.cart_id,
-          }
+          where: { cart_id: result.cart_id },
         })
         .then(() => {
           // Clean up generated entries in the carts table
           return db.Cart.destroy({
-            where: {
-              cart_id: result.cart_id,
-            },
+            where: { cart_id: result.cart_id },
           });
         });
       });
@@ -132,43 +140,37 @@ describe('dbFunctions', () => {
         // Clean up generated test data
         // First, clean up cart_items entries
         return db.CartItem.destroy({
-          where: {
-            cart_id: result.cart_id,
-          }
+          where: { cart_id: result.cart_id },
         })
         .then(() => {
           // Clean up generated entries in the carts table
           return db.Cart.destroy({
-            where: {
-              cart_id: result.cart_id,
-            },
+            where: { cart_id: result.cart_id },
           });
         });
       });
     });
 
-    afterAll(() => {
-      // Clean up generated test data
-      // First, clean up cart_items entries
-      return db.CartItem.destroy({
-        where: {
-          [Op.or]: [
-            { cart_id: cartIdExisting },
-            { cart_id: cartIdNew }
-          ],
-        }
-      })
-      .then(() => {
-        // Clean up generated entries in the carts table
-        return db.Cart.destroy({
-          where: {
-            [Op.or]: [
-              { cart_id: cartIdExisting },
-              { cart_id: cartIdNew }
-            ],
-          },
+    it('should update the quantity column if the cart item entry already existed', () => {
+      return dbFunctions.addItemToCart(9, userIdCookieQuantityUpdate).then(result => {
+        expect(result.session_key).toEqual(userIdCookieQuantityUpdate);
+
+        // Cart should have one item row with productId === 9 and quantity === 2
+        const { products } = result.cart;
+        expect(products).toHaveLength(1);
+        expect(products[0].id).toEqual(9);
+        expect(products[0].quantity).toEqual(2);
+
+        // Clean up generated data
+        return db.CartItem.destroy({
+          where: { cart_id: result.cart_id },
+        })
+        .then(() => {
+          return db.Cart.destroy({
+            where: { cart_id: result.cart_id },
+          });
         });
-      });
+      })
     });
   });
 });

@@ -7,6 +7,17 @@ const getAllProducts = () => {
   });
 };
 
+// Find one cart item row with the specified cart and product numbers
+const getCartItem = (cartId, productId) => {
+  return db.CartItem.findOne({
+    where: {
+      cart_id: cartId,
+      product_id: productId,
+    },
+    raw: true
+  });
+};
+
 const increaseQuantityByOne = (cart_id, product_id) => {
   return db.CartItem.update(
     { quantity: db.sequelize.literal('quantity + 1') }, 
@@ -36,6 +47,7 @@ const getUserCart = userIdCookie => {
     const products = items.map(item => ({
       id: item['product.id'],
       price: item['product.price'],
+      quantity: item['quantity'],
       description: item['product.description'],
       name: item['product.name'],
       image: item['product.image'],
@@ -56,32 +68,44 @@ const getUserCart = userIdCookie => {
 
 // Add an item to the current user's cart
 // Returns the new cart for that user along with some query metadata
-const addItemToCart = (productId, userIdCookie) => {
+const addItemToCart = async (productId, userIdCookie) => {
   // If the user doesn't already have a cart, we should create a new one for them
-  return db.Cart.findOrCreate({
+  const [cartData, cartCreated] = await db.Cart.findOrCreate({
     where: {
       session_key: userIdCookie,
     },
-  })
-  .then(([cartData, cartCreated]) => {
-    // Insert the newly added item into cart_items
+  });
+
+  const cartId = cartData.getDataValue('cart_id');
+
+  // Figure out if the user already had one of this item in their cart
+  // (Not possible if the cart was just created)
+  const existingCartItem = cartCreated ? false : await getCartItem(cartId, productId);
+
+  if (existingCartItem) {
+    // If so, just update the quantity column for that item in the cart
+    const cartItem = await increaseQuantityByOne(cartId, productId);
+  } else {
+    // Otherwise, insert the newly added item into cart_items
     // Associate it with the found (or newly created) cart
-    return db.CartItem.create({
-      cart_id: cartData.getDataValue('cart_id'),
+    const cartItem = await db.CartItem.create({
+      cart_id: cartId,
       product_id: productId,
     });
-  })
-  .then((cartItem) => {
-    return getUserCart(userIdCookie).then(userCart => ({
-      cart: userCart,
-      cart_id: cartItem.getDataValue('cart_id'),
-      session_key: userIdCookie,
-    }));
+  }
+
+  const userCart = await getUserCart(userIdCookie);
+  
+  return ({
+    cart: userCart,
+    cart_id: cartId,
+    session_key: userIdCookie,
   });
 };
 
 module.exports = {
   getAllProducts,
+  getCartItem,
   increaseQuantityByOne,
   getUserCart,
   addItemToCart,

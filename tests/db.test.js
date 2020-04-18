@@ -4,6 +4,7 @@ require('dotenv').config();
 // Import db code to be tested
 const db = require('../db/db');
 const dbFunctions = require('../db/dbFunctions');
+const { Op } = require('sequelize');
 
 // Tests related to database setup/models
 describe('DB', () => {
@@ -171,6 +172,97 @@ describe('dbFunctions', () => {
           });
         });
       })
+    });
+  });
+
+  describe('removeItemFromCart', () => {
+    const userIdCookieQuantityOne = 'userIdCookieQuantityOneTest';
+    const userIdCookieQuantityMany = 'userIdCookieQuantityManyTest';
+
+    let cartIdOne, cartIdMany;
+
+    // Set up test data
+    beforeAll(() => {
+      const cartOne = db.Cart.create({
+        session_key: userIdCookieQuantityOne,
+      }).then(newCart => {
+        cartIdOne = newCart.getDataValue('cart_id');
+
+        return db.CartItem.create({
+          cart_id: cartIdOne,
+          product_id: 7,
+          quantity: 1,
+        });
+      });
+
+      const cartMany = db.Cart.create({
+        session_key: userIdCookieQuantityMany,
+      }).then(newCart => {
+        cartIdMany = newCart.getDataValue('cart_id');
+
+        return db.CartItem.create({
+          cart_id: cartIdMany,
+          product_id: 9,
+          quantity: 3,
+        });
+      });
+
+      return Promise.all([cartOne, cartMany]);
+    });
+
+    it('should remove the cart_items entry if quantity is 1', () => {
+      return dbFunctions.removeItemFromCart(7, userIdCookieQuantityOne).then(result => {
+        expect(result.session_key).toEqual(userIdCookieQuantityOne);
+
+        // Products list should be empty
+        const { products } = result.cart;
+        expect(products).toHaveLength(0);
+        
+        // After deletion, no cart item entry should be found for this cart and product combination
+        return db.CartItem.findOne({
+          where: {
+            cart_id: cartIdOne,
+            product_id: 7,
+          },
+          raw: true,
+        }).then(cartItem => {
+          expect(cartItem).toBeNull();
+        });
+      });
+    });
+
+    it('should decrement the quantity column if quantity > 1', () => {
+      return dbFunctions.removeItemFromCart(9, userIdCookieQuantityMany).then(result => {
+        expect(result.session_key).toEqual(userIdCookieQuantityMany);
+
+        const { products } = result.cart;
+        // Should still have an item in the cart, but now quantity should be 2
+        expect(products).toHaveLength(1);
+        expect(products[0].id).toEqual(9);
+        expect(products[0].quantity).toEqual(2);
+      });
+    });
+
+    // Clean up test data
+    afterAll(() => {
+      return db.CartItem.destroy({
+        where: {
+          [Op.or]: [
+            { cart_id: cartIdOne },
+            { cart_id: cartIdMany }
+          ],
+        },
+      })
+      .then(() => {
+        return db.Cart.destroy({
+          where: {
+            [Op.or]: [
+              { cart_id: cartIdOne },
+              { cart_id: cartIdMany }
+            ],
+          },
+        });
+      });
     });
   });
 });

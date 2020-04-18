@@ -18,12 +18,21 @@ const getCartItem = (cartId, productId) => {
   });
 };
 
+// Increase the `quantity` field of an existing cart items entry by 1
 const increaseQuantityByOne = (cart_id, product_id) => {
   return db.CartItem.update(
     { quantity: db.sequelize.literal('quantity + 1') }, 
     { where: { cart_id, product_id },
   });
-}
+};
+
+// Decrease the `quantity` field of an existing cart items entry by 1
+const decreaseQuantityByOne = (cart_id, product_id) => {
+  return db.CartItem.update(
+    { quantity: db.sequelize.literal('quantity - 1') }, 
+    { where: { cart_id, product_id },
+  });
+}; 
 
 // Get cart information for the current user (with product information
 // joined in) from the database
@@ -103,10 +112,42 @@ const addItemToCart = async (productId, userIdCookie) => {
   });
 };
 
+// Remove an item from the current user's cart
+// Returns the new cart for that user along with some metadata
+const removeItemFromCart = async (productId, userIdCookie) => {
+  // Get cart ID from cookie
+  const cartData = await db.Cart.findOne({
+    where: { session_key: userIdCookie },
+  });
+  const cartId = cartData.getDataValue('cart_id');
+
+  // Find the existing cart_items entry
+  const existingCartItem = await getCartItem(cartId, productId);
+
+  if (existingCartItem.quantity === 1) {
+    // If the user has only one of these items, delete the entry
+    await db.CartItem.destroy({
+      where: { cart_id: cartId, product_id: productId },
+    });
+  } else {
+    // Otherwise, decrement the quantity of that item
+    await decreaseQuantityByOne(cartId, productId);
+  }
+
+  const userCart = await getUserCart(userIdCookie);
+
+  return ({
+    cart: userCart,
+    cart_id: cartId,
+    session_key: userIdCookie,
+  });
+};
+
 module.exports = {
   getAllProducts,
   getCartItem,
   increaseQuantityByOne,
   getUserCart,
   addItemToCart,
+  removeItemFromCart,
 };

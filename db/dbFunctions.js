@@ -64,7 +64,7 @@ const getUserCart = userIdCookie => {
 
     // Sum up the price of all the cart items
     const total = products.reduce((totalPrice, currentItem) => {
-      return totalPrice + currentItem.price;
+      return totalPrice + (currentItem.price * currentItem.quantity);
     }, 0);
 
     // Return the new cart object

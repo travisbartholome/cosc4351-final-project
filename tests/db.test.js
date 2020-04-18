@@ -70,6 +70,7 @@ describe('dbFunctions', () => {
 
         // Cart should have a `total` property
         expect(cart).toHaveProperty('total');
+        expect(cart.total).toMatchSnapshot();
       });
     });
   });

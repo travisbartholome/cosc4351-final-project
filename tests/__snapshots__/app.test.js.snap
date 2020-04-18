@@ -3,9 +3,9 @@
 exports[`App views should render the cart page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "2906",
+  "content-length": "2907",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"b5a-bhtoC0bTWPJbYDVnRMU+/GiorZ0\\"",
+  "etag": "W/\\"b5b-YvOp4m+X65v8T8TsXa7Mo626OSw\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -70,7 +70,7 @@ exports[`App views should render the cart page successfully 2`] = `
   <div class=\\"content-container\\">
     <div class=\\"row\\">
     </div>
-    Total: 6
+    Total: 12
     <br>
     <button type=\\"button\\" class=\\"btn btn-secondary\\"><a href=\\"/checkout\\">Checkout</a></button>
   </div>

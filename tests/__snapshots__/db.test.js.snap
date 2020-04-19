@@ -27,8 +27,6 @@ Object {
 }
 `;
 
-exports[`dbFunctions getUserCart should return an object with the correct cart structure 1`] = `12`;
-
 exports[`dbFunctions getUserCart should return cart items associated with a given user 1`] = `
 Object {
   "products": Array [
@@ -42,5 +40,6 @@ Object {
     },
   ],
   "total": 12,
+  "totalItems": 2,
 }
 `;

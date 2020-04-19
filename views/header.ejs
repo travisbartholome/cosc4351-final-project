@@ -20,7 +20,7 @@
         <a class="nav-link" href="/cart">
             <span class="fas fa-shopping-cart"></span>
             Cart
-            <span class="badge badge-primary" id="badge-cart-size"><%= cart.products.length %></span>
+            <span class="badge badge-primary" id="badge-cart-size"><%= cart.totalItems || 0 %></span>
         </a>
       </li> 
       <li class="nav-item">

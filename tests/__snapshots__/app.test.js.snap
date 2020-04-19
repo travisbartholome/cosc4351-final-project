@@ -3,9 +3,9 @@
 exports[`App views should render the cart page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "2906",
+  "content-length": "2907",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"b5a-bhtoC0bTWPJbYDVnRMU+/GiorZ0\\"",
+  "etag": "W/\\"b5b-6eywA9V9hQmqZJVeybuqU1ktbLE\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -54,7 +54,7 @@ exports[`App views should render the cart page successfully 2`] = `
         <a class=\\"nav-link\\" href=\\"/cart\\">
             <span class=\\"fas fa-shopping-cart\\"></span>
             Cart
-            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">1</span>
+            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">2</span>
         </a>
       </li> 
       <li class=\\"nav-item\\">
@@ -70,7 +70,7 @@ exports[`App views should render the cart page successfully 2`] = `
   <div class=\\"content-container\\">
     <div class=\\"row\\">
     </div>
-    Total: 6
+    Total: 12
     <br>
     <button type=\\"button\\" class=\\"btn btn-secondary\\"><a href=\\"/checkout\\">Checkout</a></button>
   </div>
@@ -90,7 +90,7 @@ Object {
   "connection": "close",
   "content-length": "9764",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"2624-3RXJ4iDeP1zBzLGGS3o6VwErdNE\\"",
+  "etag": "W/\\"2624-p3FvD+/l+Ez5H8kEGRMOF8QTOAM\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -138,7 +138,7 @@ exports[`App views should render the checkout page successfully 2`] = `
         <a class=\\"nav-link\\" href=\\"/cart\\">
             <span class=\\"fas fa-shopping-cart\\"></span>
             Cart
-            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">1</span>
+            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">2</span>
         </a>
       </li> 
       <li class=\\"nav-item\\">
@@ -313,9 +313,9 @@ exports[`App views should render the checkout page successfully 2`] = `
 exports[`App views should render the root/browse page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "7766",
+  "content-length": "7847",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"1e56-44I1TTnX706mjj9VmquWu4pgQqA\\"",
+  "etag": "W/\\"1ea7-nWUU3w5uAPVaSXjFDkjo1+YmviQ\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -364,7 +364,7 @@ exports[`App views should render the root/browse page successfully 2`] = `
         <a class=\\"nav-link\\" href=\\"/cart\\">
             <span class=\\"fas fa-shopping-cart\\"></span>
             Cart
-            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">1</span>
+            <span class=\\"badge badge-primary\\" id=\\"badge-cart-size\\">2</span>
         </a>
       </li> 
       <li class=\\"nav-item\\">
@@ -516,7 +516,9 @@ exports[`App views should render the root/browse page successfully 2`] = `
         // Handle response data, or do nothing
         console.log(data);
         console.log(status);
-        $('#badge-cart-size').text(data.products.length);
+        $('#badge-cart-size').text(data.products.reduce((total, product) => {
+          return total + product.quantity;
+        }, 0));
       });
     }
   </script>

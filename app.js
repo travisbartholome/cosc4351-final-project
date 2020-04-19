@@ -2,7 +2,6 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const USPS = require('usps-webtools');
 
 // Add .env variables to environment
 require('dotenv').config();
@@ -59,36 +58,6 @@ app.get('/cart', (req, res) => {
 app.get('/checkout', async (req, res) => {
   const cart = await dbFunctions.getUserCart(req.cookies.id || '');
   res.render('checkout', { cart });
-}); 
-
-app.get('/validate', (req, res) => {
-  const street1 =  req.query.street1;
-  const street2 =  req.query.street2;
-  const city  = req.query.city;
-  const state = req.query.state;
-  const zipcode = req.query.zipcode;
-
-  const usps = new USPS({
-    server: 'http://production.shippingapis.com/ShippingAPI.dll',
-    userId: process.env.DB_USPS,
-    ttl: 10000 //TTL in milliseconds for request
-  });
-
-  usps.verify({
-    street1: street1,
-    street2: street2,
-    city: city,
-    state: state,
-    zip: zipcode
-  }, function(err, address) {
-    // TODO: rather than redirecting here, just return whether or not the address was valid
-    if (address) {
-      res.redirect('/success');
-    } else {
-      res.redirect('/error');
-    }
-  });
-
 });
 
 app.get('/success', (req, res) => {

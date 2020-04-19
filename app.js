@@ -60,14 +60,6 @@ app.get('/checkout', async (req, res) => {
   res.render('checkout', { cart });
 });
 
-app.get('/success', (req, res) => {
-  res.render('success')
-});
-
-app.get('/error', (req, res) => {
-  res.render('error')
-});
-
 // Set the app to listen on a network port
 const server = app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

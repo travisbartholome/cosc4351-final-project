@@ -295,7 +295,7 @@ exports[`App views should render the cart page successfully 2`] = `
   <div class=\\"content-container\\">
     <div class=\\"row\\">
     </div>
-    Total: 6
+    Total: 12
     <br>
     <button type=\\"button\\" class=\\"btn btn-secondary\\"><a href=\\"/checkout\\">Checkout</a></button>
   </div>
@@ -623,7 +623,21 @@ exports[`App views should render the root/home page successfully 2`] = `
   
 
   </footer>
-  </body>
+  <script>
+    function add_to_cart(id) {
+      console.log(id);
+
+      $.post('/api/cart/add', { productId: id }, (data, status) => {
+        // Handle response data, or do nothing
+        console.log(data);
+        console.log(status);
+        $('#badge-cart-size').text(data.products.reduce((total, product) => {
+          return total + product.quantity;
+        }, 0));
+      });
+    }
+  </script>
+</body>
 </html>
 "
 `;

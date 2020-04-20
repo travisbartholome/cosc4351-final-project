@@ -24,4 +24,15 @@ api.post('/cart/add', (req, res) => {
     .then(({ cart }) => res.json(cart));
 });
 
+api.post('/cart/remove', (req, res) => {
+  const { productId } = req.body;
+  const userIdCookie = req.cookies.id;
+
+  // Remove the specified item from the user's cart
+  // Return the newe cart state as the POST response
+  return dbFunctions
+    .removeItemFromCart(productId, userIdCookie)
+    .then(({ cart }) => res.json(cart));
+});
+
 module.exports = api;

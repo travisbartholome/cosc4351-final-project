@@ -1,0 +1,39 @@
+/* General layout styles */
+.navbar {
+  background-color: #1c2331;
+}
+.navbar .navbar-brand {
+  color: #fbfeff;
+}
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #a7aaaf;
+}
+.navbar .navbar-text {
+  color: #fbfeff;
+}
+.navbar .navbar-text a {
+  color: #a7aaaf;
+}
+.navbar .navbar-text a:hover,
+.navbar .navbar-text a:focus {
+  color: #a7aaaf; 
+}
+.navbar .navbar-nav .nav-link {
+  color: #fbfeff;
+  border-radius: .25rem;
+  margin: 0 0.25em;
+}
+.navbar .navbar-nav .nav-link:not(.disabled):hover,
+.navbar .navbar-nav .nav-link:not(.disabled):focus {
+  color: #a7aaaf;
+}
+.navbar .navbar-nav .nav-item.active .nav-link,
+.navbar .navbar-nav .nav-item.active .nav-link:hover,
+.navbar .navbar-nav .nav-item.active .nav-link:focus,
+.navbar .navbar-nav .nav-item.show .nav-link,
+.navbar .navbar-nav .nav-item.show .nav-link:hover,
+.navbar .navbar-nav .nav-item.show .nav-link:focus {
+  color: #a7aaaf;
+  background-color: #ffffff;
+}

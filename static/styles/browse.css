@@ -33,29 +33,11 @@
   object-fit: cover;
   width: 100%;
 }
-/*END PRODUCT CARD STYLE*/
-
-/* General layout styles */
-
-body {
-  padding-top: 70px; /* Compensate for Bootstrap nav height */
-}
-
-@media screen and (max-width: 768px) {
-  /* Extra compensation required on small widths */
-  /* Bootstrap switches to "mobile" at width of 768px */
-  body {
-    padding-top: 320px;
-  }
-}
-
-.content-container {
-  margin: 0 auto;
-  width: 90%;
-}
 
 .img-container {
   height: 250px;
   padding: 10px;
   width: 100%;
 }
+
+/*END PRODUCT CARD STYLE*/

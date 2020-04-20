@@ -1,18 +1,6 @@
 /* General layout styles */
 .jumbotron {
-  background: url("static/images/homepage_image.jpg") auto center no-repeat;
+  background: url("/static/images/homepage_image.jpg") fixed center no-repeat;
   background-size: cover;
   color: #fff;
-}
-/* We may not need this, because we want the background image to be flesh with navbar*/
-body {
-  padding-top: 70px; /* Compensate for Bootstrap nav height */
-}
-
-@media screen and (max-width: 768px) {
-  /* Extra compensation required on small widths */
-  /* Bootstrap switches to "mobile" at width of 768px */
-  body {
-    padding-top: 320px;
-  }
 }

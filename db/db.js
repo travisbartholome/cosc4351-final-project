@@ -8,17 +8,17 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         dialect: 'postgres',
-        dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false, // See https://github.com/brianc/node-postgres/issues/2009
-            },
-        },
-        ssl: true,
-        define: {
-            timestamps: false
-        },
-        logging: () => {}, // Turn off sequelize console logging
+        // dialectOptions: {
+        //     ssl: {
+        //         require: true,
+        //         rejectUnauthorized: false, // See https://github.com/brianc/node-postgres/issues/2009
+        //     },
+        // },
+        // ssl: true,
+        // define: {
+        //     timestamps: false
+        // },
+        // logging: () => {}, // Turn off sequelize console logging
     }
 );
 

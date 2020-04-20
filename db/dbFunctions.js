@@ -149,6 +149,20 @@ const removeItemFromCart = async (productId, userIdCookie) => {
   });
 };
 
+const updateQuantity = async (product_id, userIdCookie, quantity) => {
+  
+  const cartData = await db.Cart.findOne({
+    where: { session_key: userIdCookie },
+  });
+
+  const cart_id = cartData.getDataValue('cart_id');
+
+  return db.CartItem.update(
+    { quantity: quantity },
+    { where: {cart_id, product_id} }
+  );
+}
+
 module.exports = {
   getAllProducts,
   getCartItem,
@@ -156,4 +170,5 @@ module.exports = {
   getUserCart,
   addItemToCart,
   removeItemFromCart,
+  updateQuantity
 };

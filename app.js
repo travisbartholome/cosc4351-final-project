@@ -40,6 +40,7 @@ app.get('/', async (req, res) => {
   const cart = await dbFunctions.getUserCart(req.cookies.id || '');
   
   res.render('browse', { products, cart });
+
 });
 
 // Route for cart page

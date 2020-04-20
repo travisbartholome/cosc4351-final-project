@@ -37,7 +37,9 @@
         // Handle response data, or do nothing
         console.log(data);
         console.log(status);
-        $('#badge-cart-size').text(data.products.length);
+        $('#badge-cart-size').text(data.products.reduce((total, product) => {
+          return total + product.quantity;
+        }, 0));
       });
     }
   </script>

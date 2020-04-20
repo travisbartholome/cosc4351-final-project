@@ -9,6 +9,12 @@ describe('App', () => {
       .expect(200, done);
   });
 
+  it('should successfully render a page on GET to /browse', done => {
+    request(app)
+      .get('/')
+      .expect(200, done);
+  });
+
   it('should successfully render a page on GET to /cart', done => {
     request(app)
       .get('/cart')
@@ -23,9 +29,23 @@ describe('App', () => {
 
   // Test that views are being rendered correctly
   describe('views', () => {
-    it('should render the root/browse page successfully', () => {
+    it('should render the root/home page successfully', () => {
       return request(app)
         .get('/')
+        .set('Cookie', ['id=dcbda148-f351-43e0-9e8a-5c2f4643db5c'])
+        .then(res => {
+          // Check response header
+          delete res.header.date; // Changes with every request, no use in checking here
+          expect(res.header).toMatchSnapshot();
+
+          // Check response body
+          expect(res.text).toMatchSnapshot();
+        })
+    });
+
+    it('should render the browse page successfully', () => {
+      return request(app)
+        .get('/browse')
         .set('Cookie', ['id=dcbda148-f351-43e0-9e8a-5c2f4643db5c'])
         .then(res => {
           // Check response header

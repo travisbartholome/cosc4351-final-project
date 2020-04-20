@@ -4,6 +4,7 @@ require('dotenv').config();
 // Import db code to be tested
 const db = require('../db/db');
 const dbFunctions = require('../db/dbFunctions');
+const { Op } = require('sequelize');
 
 // Tests related to database setup/models
 describe('DB', () => {
@@ -69,6 +70,8 @@ describe('dbFunctions', () => {
 
         // Cart should have a `total` property
         expect(cart).toHaveProperty('total');
+        // Should have a `totalItems` property
+        expect(cart).toHaveProperty('totalItems');
       });
     });
   });
@@ -76,18 +79,34 @@ describe('dbFunctions', () => {
   describe('addItemToCart', () => {
     const userIdCookieExisting = 'addItemToExistingCartTest';
     const userIdCookieNew = 'addItemToNewCartTest';
+    const userIdCookieQuantityUpdate = 'addItemUpdateQuantityTest';
+
+    let cartIdExisting, cartIdNew, cartIdQuantityUpdate;
 
     beforeAll(() => {
       // Insert cart entry and cart item entry for the "pre-existing cart" test cookie
-      return db.Cart.create({
+      const cartExisting = db.Cart.create({
         session_key: userIdCookieExisting,
-      })
-      .then(newCart => {
+      }).then(newCart => {
+        cartIdExisting = newCart.getDataValue('cart_id');
         return db.CartItem.create({
-          cart_id: newCart.getDataValue('cart_id'),
+          cart_id: cartIdExisting,
           product_id: 7,
         });
       });
+
+      // Create cart entry and item for the "pre-existing cart item" test
+      const cartQuantity = db.Cart.create({
+        session_key: userIdCookieQuantityUpdate,
+      }).then(newCart => {
+        cartIdQuantityUpdate = newCart.getDataValue('cart_id');
+        return db.CartItem.create({
+          cart_id: cartIdQuantityUpdate,
+          product_id: 9,
+        });
+      });
+
+      return Promise.all([cartExisting, cartQuantity]);
     });
 
     it('should add a cart_items entry when the user\'s cart already exists', () => {
@@ -100,27 +119,13 @@ describe('dbFunctions', () => {
         expect(products).toHaveLength(2);
         expect(products.some(product => product.id === 5)).toBe(true);
         expect(products.some(product => product.id === 7)).toBe(true);
-
-        // Clean up generated test data
-        // First, clean up cart_items entries
-        return db.CartItem.destroy({
-          where: {
-            cart_id: result.cart_id,
-          }
-        })
-        .then(() => {
-          // Clean up generated entries in the carts table
-          return db.Cart.destroy({
-            where: {
-              cart_id: result.cart_id,
-            },
-          });
-        });
       });
     });
 
     it('should add a cart_items entry when the user\'s cart does not already exist', () => {
       return dbFunctions.addItemToCart(3, userIdCookieNew).then(result => {
+        cartIdNew = result.cart_id; // Store cart id for cleanup
+
         expect(result.session_key).toEqual(userIdCookieNew);
         
         // Cart should have two items: product 7 (inserted in beforeAll) and
@@ -128,43 +133,132 @@ describe('dbFunctions', () => {
         const { products } = result.cart;
         expect(products).toHaveLength(1);
         expect(products[0].id).toEqual(3);
-
-        // Clean up generated test data
-        // First, clean up cart_items entries
-        return db.CartItem.destroy({
-          where: {
-            cart_id: result.cart_id,
-          }
-        })
-        .then(() => {
-          // Clean up generated entries in the carts table
-          return db.Cart.destroy({
-            where: {
-              cart_id: result.cart_id,
-            },
-          });
-        });
       });
     });
 
+    it('should update the quantity column if the cart item entry already existed', () => {
+      return dbFunctions.addItemToCart(9, userIdCookieQuantityUpdate).then(result => {
+        expect(result.session_key).toEqual(userIdCookieQuantityUpdate);
+
+        // Cart should have one item row with productId === 9 and quantity === 2
+        const { products } = result.cart;
+        expect(products).toHaveLength(1);
+        expect(products[0].id).toEqual(9);
+        expect(products[0].quantity).toEqual(2);
+      });
+    });
+
+    // Clean up test data
     afterAll(() => {
-      // Clean up generated test data
       // First, clean up cart_items entries
+      // Then clean up generated entries in the carts table
       return db.CartItem.destroy({
         where: {
           [Op.or]: [
             { cart_id: cartIdExisting },
-            { cart_id: cartIdNew }
+            { cart_id: cartIdNew },
+            { cart_id: cartIdQuantityUpdate },
           ],
-        }
+        },
       })
       .then(() => {
-        // Clean up generated entries in the carts table
         return db.Cart.destroy({
           where: {
             [Op.or]: [
               { cart_id: cartIdExisting },
-              { cart_id: cartIdNew }
+              { cart_id: cartIdNew },
+              { cart_id: cartIdQuantityUpdate },
+            ],
+          },
+        });
+      });
+    });
+  });
+
+  describe('removeItemFromCart', () => {
+    const userIdCookieQuantityOne = 'userIdCookieQuantityOneTest';
+    const userIdCookieQuantityMany = 'userIdCookieQuantityManyTest';
+
+    let cartIdOne, cartIdMany;
+
+    // Set up test data
+    beforeAll(() => {
+      const cartOne = db.Cart.create({
+        session_key: userIdCookieQuantityOne,
+      }).then(newCart => {
+        cartIdOne = newCart.getDataValue('cart_id');
+
+        return db.CartItem.create({
+          cart_id: cartIdOne,
+          product_id: 7,
+          quantity: 1,
+        });
+      });
+
+      const cartMany = db.Cart.create({
+        session_key: userIdCookieQuantityMany,
+      }).then(newCart => {
+        cartIdMany = newCart.getDataValue('cart_id');
+
+        return db.CartItem.create({
+          cart_id: cartIdMany,
+          product_id: 9,
+          quantity: 3,
+        });
+      });
+
+      return Promise.all([cartOne, cartMany]);
+    });
+
+    it('should remove the cart_items entry if quantity is 1', () => {
+      return dbFunctions.removeItemFromCart(7, userIdCookieQuantityOne).then(result => {
+        expect(result.session_key).toEqual(userIdCookieQuantityOne);
+
+        // Products list should be empty
+        const { products } = result.cart;
+        expect(products).toHaveLength(0);
+        
+        // After deletion, no cart item entry should be found for this cart and product combination
+        return db.CartItem.findOne({
+          where: {
+            cart_id: cartIdOne,
+            product_id: 7,
+          },
+          raw: true,
+        }).then(cartItem => {
+          expect(cartItem).toBeNull();
+        });
+      });
+    });
+
+    it('should decrement the quantity column if quantity > 1', () => {
+      return dbFunctions.removeItemFromCart(9, userIdCookieQuantityMany).then(result => {
+        expect(result.session_key).toEqual(userIdCookieQuantityMany);
+
+        const { products } = result.cart;
+        // Should still have an item in the cart, but now quantity should be 2
+        expect(products).toHaveLength(1);
+        expect(products[0].id).toEqual(9);
+        expect(products[0].quantity).toEqual(2);
+      });
+    });
+
+    // Clean up test data
+    afterAll(() => {
+      return db.CartItem.destroy({
+        where: {
+          [Op.or]: [
+            { cart_id: cartIdOne },
+            { cart_id: cartIdMany }
+          ],
+        },
+      })
+      .then(() => {
+        return db.Cart.destroy({
+          where: {
+            [Op.or]: [
+              { cart_id: cartIdOne },
+              { cart_id: cartIdMany }
             ],
           },
         });

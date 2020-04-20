@@ -1,0 +1,11 @@
+/* Global site styles */
+
+body {
+  padding-top: 50px; /* Compensate for Bootstrap nav height */
+}
+
+.content-container {
+  margin: 0 auto;
+  padding-top: 20px;
+  width: 90%;
+}

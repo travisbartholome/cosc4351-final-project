@@ -27,9 +27,31 @@ describe('api', () => {
       .send({ productId: 42 })
       .expect(200)
       .then(response => {
-        const {productId, idCookie } = response.body;
+        const { productId, idCookie } = response.body;
         expect(productId).toEqual(42);
         expect(idCookie).toEqual('test-id-cookie');
       });
+  });
+
+  it('should respond correctly on POST to /api/cart/remove', () => {
+    // Mock out removeItemFromCart
+    dbFunctions.removeItemFromCart = (productId, idCookie) => Promise.resolve({
+      cart: {
+        // Making sure these values get passed through
+        productId,
+        idCookie,
+      },
+    });
+
+    return request(app)
+      .post('/api/cart/remove')
+      .set('Cookie', ['id=test-cart-remove'])
+      .send({ productId: 42 })
+      .expect(200)
+      .then(response => {
+        const { productId, idCookie } = response.body;
+        expect(productId).toEqual(42);
+        expect(idCookie).toEqual('test-cart-remove');
+      })
   });
 });

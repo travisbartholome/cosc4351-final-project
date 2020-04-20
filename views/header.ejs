@@ -2,7 +2,7 @@
 <!-- creates inverted (black) navigation bar w/ top that is fixed-->
 <nav class="navbar navbar-expand-md navbar-dark unique-color-dark fixed-top">
     <!-- Brand/logo -->
-    <a class="navbar-brand nav-link disabled" href="#">
+    <a class="navbar-brand nav-link disabled" href="/">
       <span class ="fas fa-glasses"></span><strong> Swag Store</strong>	
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -23,7 +23,7 @@
           <a class="nav-link" href="/cart">
               <span class="fas fa-shopping-cart"></span>
               Cart
-              <span class="badge badge-pill badge-light" id="badge-cart-size"><%= cart.products.length %></span>
+              <span class="badge badge-pill badge-light" id="badge-cart-size"><%= cart.totalItems || 0 %></span>
           </a>
         </li> 
         <li class="nav-item">

@@ -3,9 +3,9 @@
 exports[`App views should render the browse page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "8154",
+  "content-length": "8235",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"1fda-7/M58Uo+dIIwD/BnD2Q/I/4wjqI\\"",
+  "etag": "W/\\"202b-CCsZHGC8YhPtZCWMZFwK/Tr/p2Y\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -58,7 +58,7 @@ exports[`App views should render the browse page successfully 2`] = `
           <a class=\\"nav-link\\" href=\\"/cart\\">
               <span class=\\"fas fa-shopping-cart\\"></span>
               Cart
-              <span class=\\"badge badge-pill badge-light\\" id=\\"badge-cart-size\\">1</span>
+              <span class=\\"badge badge-pill badge-light\\" id=\\"badge-cart-size\\">2</span>
           </a>
         </li> 
         <li class=\\"nav-item\\">
@@ -211,7 +211,9 @@ exports[`App views should render the browse page successfully 2`] = `
         // Handle response data, or do nothing
         console.log(data);
         console.log(status);
-        $('#badge-cart-size').text(data.products.length);
+        $('#badge-cart-size').text(data.products.reduce((total, product) => {
+          return total + product.quantity;
+        }, 0));
       });
     }
   </script>
@@ -223,9 +225,9 @@ exports[`App views should render the browse page successfully 2`] = `
 exports[`App views should render the cart page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "3277",
+  "content-length": "3278",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"ccd-i6b9e9QyHQQl3co5dKzDnHy0hvY\\"",
+  "etag": "W/\\"cce-S+3oIypq2DgbTV5sa875PhEWpW4\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -278,7 +280,7 @@ exports[`App views should render the cart page successfully 2`] = `
           <a class=\\"nav-link\\" href=\\"/cart\\">
               <span class=\\"fas fa-shopping-cart\\"></span>
               Cart
-              <span class=\\"badge badge-pill badge-light\\" id=\\"badge-cart-size\\">1</span>
+              <span class=\\"badge badge-pill badge-light\\" id=\\"badge-cart-size\\">2</span>
           </a>
         </li> 
         <li class=\\"nav-item\\">
@@ -315,7 +317,7 @@ Object {
   "connection": "close",
   "content-length": "10099",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"2773-DrHIyDxYzVD3Pe8IUW0MkN8Cmpg\\"",
+  "etag": "W/\\"2773-vhcTRbc2fXtmXC2ym4AsDnNJUHY\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -365,7 +367,7 @@ exports[`App views should render the checkout page successfully 2`] = `
           <a class=\\"nav-link\\" href=\\"/cart\\">
               <span class=\\"fas fa-shopping-cart\\"></span>
               Cart
-              <span class=\\"badge badge-pill badge-light\\" id=\\"badge-cart-size\\">1</span>
+              <span class=\\"badge badge-pill badge-light\\" id=\\"badge-cart-size\\">2</span>
           </a>
         </li> 
         <li class=\\"nav-item\\">
@@ -543,7 +545,7 @@ Object {
   "connection": "close",
   "content-length": "3367",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"d27-pD5E3syJh4Kr/JJeqZ7ReP2vAfo\\"",
+  "etag": "W/\\"d27-8PQCkjFWpN1jSWs2uMWf/IVZKPE\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -596,7 +598,7 @@ exports[`App views should render the root/home page successfully 2`] = `
           <a class=\\"nav-link\\" href=\\"/cart\\">
               <span class=\\"fas fa-shopping-cart\\"></span>
               Cart
-              <span class=\\"badge badge-pill badge-light\\" id=\\"badge-cart-size\\">1</span>
+              <span class=\\"badge badge-pill badge-light\\" id=\\"badge-cart-size\\">2</span>
           </a>
         </li> 
         <li class=\\"nav-item\\">
@@ -623,21 +625,7 @@ exports[`App views should render the root/home page successfully 2`] = `
   
 
   </footer>
-  <script>
-    function add_to_cart(id) {
-      console.log(id);
-
-      $.post('/api/cart/add', { productId: id }, (data, status) => {
-        // Handle response data, or do nothing
-        console.log(data);
-        console.log(status);
-        $('#badge-cart-size').text(data.products.reduce((total, product) => {
-          return total + product.quantity;
-        }, 0));
-      });
-    }
-  </script>
-</body>
+  </body>
 </html>
 "
 `;

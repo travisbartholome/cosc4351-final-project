@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 -- NOTE: This file was used to populate our database with some dummy data
 
 -- Create DB
@@ -44,6 +43,3 @@ INSERT INTO cart_items (cart_id, product_id) VALUES
 
 -- Import CSV dummy data into products table
 \copy products FROM 'ABSOLUTE_PATH_TO_PROJECT_ROOT/db/products-dummy-data.csv' DELIMITER ',' CSV HEADER;
-=======
-SELECT c.quantity, p.name, p.price, p.id FROM cart_items c join products p ON c.product_id = p.id WHERE cart_id = 1
->>>>>>> Stashed changes

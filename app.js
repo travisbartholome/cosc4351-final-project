@@ -32,8 +32,16 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Set up main route for browse page
+//Set up main route to home page 
+// Route for checkout page
 app.get('/', async (req, res) => {
+  const cart = await dbFunctions.getUserCart(req.cookies.id || '');
+  // should we render the cart as soon as we land on home page?
+  res.render('home', { cart });
+}); 
+
+// Set up route for browse page
+app.get('/browse', async (req, res) => {
   // Render the template with products data
   const products = await dbFunctions.getAllProducts();
   const cart = await dbFunctions.getUserCart(req.cookies.id || '');

@@ -1,14 +1,13 @@
 <!doctype html>
 <html>
   <head>
-    <%-include ('head.ejs') -%> 
-  <link rel="stylesheet" href="/static/styles/checkout.css" /> 
+    <%-include ('head.ejs') -%>
   </head>
-  <body>
+  <body class="bg-light">
     <header>
         <%-include ('header.ejs') -%>
     </header>
-    <div class="container">
+    <div class="container content-container">
       <div class="row">
       <!--order-md2 makes the shipping address come before shopping cart, mb-4 spaces tile from previous row-->
         <div class="col-md-4 order-md-2 mb-4">
@@ -152,7 +151,7 @@
               </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Checkout</button>
+            <button class="btn btn-dark btn-lg btn-block" type="submit">Checkout</button>
         </div>
       </div>
    </div>

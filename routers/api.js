@@ -37,6 +37,16 @@ api.post('/cart/remove', (req, res) => {
     .then(({ cart }) => res.json(cart));
 });
 
+api.post('/cart/update', (req, res) => {
+  const { productId } = req.body;
+  const userIdCookie = req.cookies.id;
+  const quantity = req.body.quantity;
+
+  dbFunctions.updateQuantity(productId, userIdCookie, quantity);
+  
+  res.json({"status": "success"});
+});
+
 // Validate address using the USPS API
 api.get('/validate', (req, res) => {
   const { street1, street2, city, state, zipcode } = req.query;

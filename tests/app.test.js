@@ -57,6 +57,12 @@ describe('App', () => {
         })
     });
 
+    it('should render the browse page when the ID cookie is not set', () => {
+      return request(app)
+        .get('/browse')
+        .expect(200);
+    });
+
     it('should render the cart page successfully', () => {
       return request(app)
         .get('/cart')

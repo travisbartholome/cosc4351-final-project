@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api validate should respond correctly for a valid address 1`] = `
+Object {
+  "carrier_route": "C002",
+  "central_delivery_point": "N",
+  "city": "HOUSTON",
+  "delivery_point": "00",
+  "dpv_confirmation": "Y",
+  "dpv_footnotes": "AAU1",
+  "footnotes": "AQ",
+  "state": "TX",
+  "street1": "4800 CALHOUN RD",
+  "street2": "",
+  "zip": "77204",
+  "zip4": "2610",
+}
+`;

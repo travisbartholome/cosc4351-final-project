@@ -1,14 +1,13 @@
 <!doctype html>
 <html>
   <head>
-    <%-include ('head.ejs') -%> 
-  <link rel="stylesheet" href="/static/styles/checkout.css" /> 
+    <%-include ('head.ejs') -%>
   </head>
-  <body>
+  <body class="bg-light">
     <header>
         <%-include ('header.ejs') -%>
     </header>
-    <div class="container">
+    <div class="container content-container">
       <div class="row">
       <!--order-md2 makes the shipping address come before shopping cart, mb-4 spaces tile from previous row-->
         <div class="col-md-4 order-md-2 mb-4">
@@ -37,7 +36,7 @@
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Shipping address</h4>
           <!-- Begin form to check address-->
-          <form action="validate" method="GET" class="needs-validation" novalidate>
+          <form id="address-form" action="#" method="GET" class="needs-validation">
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">First name</label>
@@ -81,14 +80,14 @@
               </div>
               <div class="col-md-4 mb-3">
                 <label for="state">State</label>
-				<input type="text" class="form-control" name="state" id="state" placeholder="Your State">
+				        <input type="text" class="form-control" name="state" id="state" placeholder="Your State">
                 <div class="invalid-feedback">
                   Please provide a valid state.
                 </div>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="city">City</label>
-				<input type="text" class="form-control" name="city" id="city" placeholder="Your City">
+				        <input type="text" class="form-control" name="city" id="city" placeholder="Your City">
                 <div class="invalid-feedback">
                   Please provide a valid city.
                 </div>
@@ -101,7 +100,10 @@
                 </div>
               </div>
             </div>
-         </form>
+
+            <!-- Temporary address validation button -->
+            <button class="btn btn-secondary btn-md" type="submit">Validate Address</button>
+          </form>
             <h4 class="mb-3">Payment</h4>
 
             <div class="d-block my-3">
@@ -152,12 +154,35 @@
               </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Checkout</button>
+            <button class="btn btn-dark btn-lg btn-block" type="submit">Checkout</button>
         </div>
       </div>
    </div>
   <footer class="container-fluid text-center">
     <%-include ('footer.ejs') -%>
   </footer>
+  <script>
+    $('#address-form').on('submit', function validateAddress(e) {
+      e.preventDefault(); // Stop default form submission
+
+      // Get address parts
+      const street1 = $('#address').val();
+      const street2 = $('#address2').val();
+      const state = $('#state').val();
+      const city = $('#city').val();
+      const zipcode = $('#zip').val();
+
+      $.get(
+        `/api/validate?street1=${street1}&street2=${street2}&state=${state}&city=${city}&zipcode=${zipcode}`,
+        function(data) {
+          // TODO: handle address verification result here
+          // display on webpage in some way
+          // check console (ctrl-shift-j in browser) to see response structure
+          // or, see the google doc
+          console.log(data);
+        }
+      );
+    });
+  </script>
  </body>
 </html>

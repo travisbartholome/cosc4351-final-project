@@ -12,31 +12,37 @@
       <!--order-md2 makes the shipping address come before shopping cart, mb-4 spaces tile from previous row-->
         <div class="col-md-4 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Your cart</span>
+            <a href="/cart" class="text-muted"><span class="text-muted">Your cart</span></a>
             <!-- Optional feature to have total items in cart displayed-->
-            <span class="badge badge-secondary badge-pill">Total Items</span>
+            <span class="badge badge-secondary badge-pill" id="badge-cart-size"><%= cart.totalItems || 0 %></span>
           </h4>
           <!-- creating unorderedlist to group all cart items, mb-3 is bottom margin of 16px if font size is 16px-->
           <ul class="list-group mb-3">
           <!-- list-group-item: adding things to list, justify-content-between: format text spacing-->
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <!--set top and bottom margin to zero-->
-                <h6 class="my-0">List Cart Item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$$$</span>
-            </li>
+            <% cart.products.forEach(function(item){ %>
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                  <!--set top and bottom margin to zero-->
+                  <h6 class="my-0"><%= item.name %></h6>
+                  <small class="text-muted"><%= item.description %></small>
+                </div>
+                <div>
+                  <span class="text-muted">$<%= item.price.toFixed(2) %></span><br>
+                  <span class="text-muted float-right">x<%= item.quantity %></span>
+                </div>
+              </li>
+            <%});%>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD)</span>
-              <strong>Place Cart Total Here</strong>
+              <strong>$<%= cart.total.toFixed(2) %></strong>
             </li>
           </ul>
         </div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Shipping address</h4>
           <!-- Begin form to check address-->
-          <form id="address-form" action="#" method="GET" class="needs-validation">
+          <!-- Need to trun off default browser input field validation to do custom validation with BS 4.0.0-->
+          <form id="address-form" action="#" method="GET" class="needs-validation" novalidate>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">First name</label>
@@ -99,13 +105,14 @@
                   Zip code required.
                 </div>
               </div>
+              <div id="address-feedback-correct" style="display:none">
+                Address verified!
+              </div>
+              <div id="address-feedback-incorrect" style="display:none">
+                Address incorrect! Please verify and try again. 
+              </div>
             </div>
-
-            <!-- Temporary address validation button -->
-            <button class="btn btn-secondary btn-md" type="submit">Validate Address</button>
-          </form>
             <h4 class="mb-3">Payment</h4>
-
             <div class="d-block my-3">
               <div class="custom-control custom-radio">
                 <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
@@ -154,7 +161,8 @@
               </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-dark btn-lg btn-block" type="submit">Checkout</button>
+            <button class="btn btn-dark btn-lg btn-block" type="button" id="checkout-button">Checkout</button>
+          </form>
         </div>
       </div>
    </div>
@@ -162,10 +170,8 @@
     <%-include ('footer.ejs') -%>
   </footer>
   <script>
-    $('#address-form').on('submit', function validateAddress(e) {
-      e.preventDefault(); // Stop default form submission
-
-      // Get address parts
+    $('#checkout-button').on('click', function(e){ 
+       // Get address parts
       const street1 = $('#address').val();
       const street2 = $('#address2').val();
       const state = $('#state').val();
@@ -175,13 +181,30 @@
       $.get(
         `/api/validate?street1=${street1}&street2=${street2}&state=${state}&city=${city}&zipcode=${zipcode}`,
         function(data) {
-          // TODO: handle address verification result here
-          // display on webpage in some way
-          // check console (ctrl-shift-j in browser) to see response structure
-          // or, see the google doc
+          if(data.addressValid){
+            // Show address validation was correct, then submit form after 1 second
+            setTimeout(function() {
+              $('#address-form').submit();
+            }, 1000);
+            $('#address-feedback-correct').css('display','block');
+            $('#address-feedback-incorrect').css('display','none');
+          }
+          else {
+            // Show address validation was incorrect
+            $('#address-feedback-correct').css('display','none');
+            $('#address-feedback-incorrect').css('display','block');
+          }
           console.log(data);
         }
       );
+    });
+
+    $('#address-form').on('submit', function validateAddress(e) {
+      if (e.target.checkValidity() === false) {
+        e.preventDefault(); // Stop default form submission
+        e.stopPropagation(); // Stops propagation of submit event 
+      }
+      e.target.classList.add('was-validated');
     });
   </script>
  </body>

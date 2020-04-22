@@ -12,11 +12,10 @@
 
   <div class="container">
    <div class="card shopping-cart">
-            <div class="card-header bg-dark text-light">
+            <div class="card-header bg-dark text-light clearfix">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                Shipping cart
-                <a href="/" class="btn btn-outline-info btn-sm pull-right" >Continue shopping</a>
-                <div class="clearfix"></div>
+                Shopping Cart
+                <a href="/browse" class="btn btn-outline-light btn-sm float-right" >Continue Shopping</a>
             </div>
             <div class="card-body">
                 <!-- PRODUCT -->
@@ -50,15 +49,15 @@
                 <hr>
                 <%});%>
                 <!-- END PRODUCT -->
-            <div class="pull-right">
-                <a href="" class="btn btn-outline-secondary pull-right" onclick="updateCart();">
-                    Update shopping cart
+            <div class="clearfix">
+                <a href="" class="btn btn-outline-secondary float-right" onclick="updateCart();">
+                    Update Shopping Cart
                 </a>
             </div>
         </div>
         <div class="card-footer">
-            <div class="pull-right" style="margin: 10px">
-                <a href="/checkout" class="btn btn-success pull-right">Checkout</a>
+            <div class="pull-rigt" style="margin: 10px">
+                <a href="/checkout" class="btn btn-dark btn-block pull-right">Checkout</a>
                 <div class="pull-right" style="margin: 5px">
                     Total: <b>$<%= cart.total.toFixed(2) %></b>
                 </div>

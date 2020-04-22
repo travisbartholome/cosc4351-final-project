@@ -150,7 +150,6 @@ const removeItemFromCart = async (productId, userIdCookie) => {
 };
 
 const updateQuantity = async (product_id, userIdCookie, quantity) => {
-  
   const cartData = await db.Cart.findOne({
     where: { session_key: userIdCookie },
   });

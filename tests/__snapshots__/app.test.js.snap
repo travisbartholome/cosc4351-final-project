@@ -3,9 +3,9 @@
 exports[`App views should render the browse page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "8235",
+  "content-length": "8237",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"202b-CCsZHGC8YhPtZCWMZFwK/Tr/p2Y\\"",
+  "etag": "W/\\"202d-sw9aXrFUSqDxNXuv1FGo39NhtGs\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -21,7 +21,7 @@ exports[`App views should render the browse page successfully 2`] = `
 <!--Automatically re-adjusts view based on device dimensions-->
 <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, shrink-to-fit=no\\">
 <!--Loading CSS from Bootstrap CDN-->
-<!--<link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\">-->
+<!-- <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\"> -->
 <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\\" integrity=\\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\\" crossorigin=\\"anonymous\\">
 <script src=\\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\\"></script>
 <script src=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\\"></script>
@@ -225,9 +225,9 @@ exports[`App views should render the browse page successfully 2`] = `
 exports[`App views should render the cart page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "3278",
+  "content-length": "6799",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"cce-S+3oIypq2DgbTV5sa875PhEWpW4\\"",
+  "etag": "W/\\"1a8f-tt0hYcAmaeiZmSeDdCY+X/F/Okk\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -243,7 +243,7 @@ exports[`App views should render the cart page successfully 2`] = `
 <!--Automatically re-adjusts view based on device dimensions-->
 <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, shrink-to-fit=no\\">
 <!--Loading CSS from Bootstrap CDN-->
-<!--<link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\">-->
+<!-- <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\"> -->
 <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\\" integrity=\\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\\" crossorigin=\\"anonymous\\">
 <script src=\\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\\"></script>
 <script src=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\\"></script>
@@ -294,12 +294,62 @@ exports[`App views should render the cart page successfully 2`] = `
     </div>   
 </nav>
   </header>
-  <div class=\\"content-container\\">
-    <div class=\\"row\\">
+
+  <div class=\\"container\\">
+   <div class=\\"card shopping-cart\\">
+            <div class=\\"card-header bg-dark text-light\\">
+                <i class=\\"fa fa-shopping-cart\\" aria-hidden=\\"true\\"></i>
+                Shipping cart
+                <a href=\\"/\\" class=\\"btn btn-outline-info btn-sm pull-right\\" >Continue shopping</a>
+                <div class=\\"clearfix\\"></div>
+            </div>
+            <div class=\\"card-body\\">
+                <!-- PRODUCT -->
+                
+                <div class=\\"row\\">
+                    <div class=\\"col-12 col-sm-12 col-md-2 text-center\\">
+                            <img class=\\"product-image\\" src=\\"/static/images/product4.jpg\\" alt=\\"prewiew\\" style=\\"width:100px; height:100px\\">
+                    </div>
+                    <div class=\\"col-12 text-sm-center col-sm-12 text-md-left col-md-6\\">
+                        <h4 class=\\"product-name\\"><strong>Product 4</strong></h4>
+                        <h4>
+                            <small>Cheap product.</small>
+                        </h4>
+                    </div>
+                    <div class=\\"col-12 col-sm-12 text-sm-center col-md-4 text-md-right row\\">
+                        <div class=\\"col-3 col-sm-3 col-md-6 text-md-right\\" style=\\"padding-top: 5px\\">
+                            <h6><strong>6.00 <span class=\\"text-muted\\">x</span></strong></h6>
+                        </div>
+                        <div class=\\"col-4 col-sm-4 col-md-4\\">
+                            <div class=\\"quantity\\">
+                                <input type=\\"text\\" class=\\"form-control input-sm\\" value=\\"2\\" onchange=\\"updateQuantity(4, this);\\">
+                            </div>
+                        </div>
+                        <div class=\\"col-2 col-sm-2 col-md-2 text-right\\">
+                            <button type=\\"button\\" class=\\"btn btn-outline-danger btn-xs\\">
+                                <i class=\\"fa fa-trash\\" aria-hidden=\\"true\\" onclick=\\"deleteCartItem(4)\\"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                
+                <!-- END PRODUCT -->
+            <div class=\\"pull-right\\">
+                <a href=\\"\\" class=\\"btn btn-outline-secondary pull-right\\" onclick=\\"updateCart();\\">
+                    Update shopping cart
+                </a>
+            </div>
+        </div>
+        <div class=\\"card-footer\\">
+            <div class=\\"pull-right\\" style=\\"margin: 10px\\">
+                <a href=\\"/checkout\\" class=\\"btn btn-success pull-right\\">Checkout</a>
+                <div class=\\"pull-right\\" style=\\"margin: 5px\\">
+                    Total: <b>$12.00</b>
+                </div>
+            </div>
+        </div>
     </div>
-    Total: 12
-    <br>
-    <button type=\\"button\\" class=\\"btn btn-secondary\\"><a href=\\"/checkout\\">Checkout</a></button>
   </div>
   <footer class=\\"container-fluid text-center\\">
     
@@ -307,6 +357,46 @@ exports[`App views should render the cart page successfully 2`] = `
   
 
   </footer>
+  <script>
+    function deleteCartItem(productId) {
+        $.ajax({
+            url: '/api/cart/remove',
+            type: 'post',
+            data: {
+            productId
+            },
+            dataType: 'json',
+            success(data) {
+            window.location.reload();
+            },
+            error(err) {
+            console.log(err);
+            }
+        })
+    };
+
+    function updateQuantity(productId, el) {
+        $.ajax({
+            url: '/api/cart/update',
+            type: 'post',
+            data: {
+                productId,
+                quantity: $(el).val()
+            },
+            dataType: 'json',
+            success(data) {
+                // location.reload();
+            },
+            error(err) {
+                console.log(err);
+            }
+        })
+    };
+
+    function updateCart() {
+        window.location.reload();
+    }
+  </script>
   </body>
 </html>
 "
@@ -315,9 +405,9 @@ exports[`App views should render the cart page successfully 2`] = `
 exports[`App views should render the checkout page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "11093",
+  "content-length": "11095",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"2b55-9D0Bg510Ekn0O34ycxFrBdZQJS0\\"",
+  "etag": "W/\\"2b57-6BLhPqd3t/e4Vk9umauwaS5qcw8\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -332,7 +422,7 @@ exports[`App views should render the checkout page successfully 2`] = `
 <!--Automatically re-adjusts view based on device dimensions-->
 <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, shrink-to-fit=no\\">
 <!--Loading CSS from Bootstrap CDN-->
-<!--<link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\">-->
+<!-- <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\"> -->
 <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\\" integrity=\\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\\" crossorigin=\\"anonymous\\">
 <script src=\\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\\"></script>
 <script src=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\\"></script>
@@ -569,9 +659,9 @@ exports[`App views should render the checkout page successfully 2`] = `
 exports[`App views should render the root/home page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "3367",
+  "content-length": "3369",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"d27-8PQCkjFWpN1jSWs2uMWf/IVZKPE\\"",
+  "etag": "W/\\"d29-PZ/IE08v0kMZkQ7A3uZqNJInNPA\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -587,7 +677,7 @@ exports[`App views should render the root/home page successfully 2`] = `
 <!--Automatically re-adjusts view based on device dimensions-->
 <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, shrink-to-fit=no\\">
 <!--Loading CSS from Bootstrap CDN-->
-<!--<link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\">-->
+<!-- <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\\"> -->
 <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\\" integrity=\\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\\" crossorigin=\\"anonymous\\">
 <script src=\\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\\"></script>
 <script src=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\\"></script>

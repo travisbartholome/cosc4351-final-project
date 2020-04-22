@@ -265,6 +265,50 @@ describe('dbFunctions', () => {
       });
     });
   });
+
+  describe('updateCartItem', () => {
+    const idCookie = 'update-cart-item-test';
+    let testCartId; // Store for cleanup
+
+    // Create test data
+    beforeAll(() => {
+      return db.Cart.create({
+        session_key: idCookie,
+      }).then(newCart => {
+        testCartId = newCart.getDataValue('cart_id');
+        return db.CartItem.create({
+          product_id: 2,
+          cart_id: testCartId,
+          quantity: 8,
+        });
+      });
+    });
+
+    it('should update the quantity of a specific cart item entry', () => {
+      return dbFunctions.updateQuantity(2, idCookie, 12).then(result => {
+        expect(result[0]).toEqual(1); // Number of affected rows
+
+        return db.CartItem.findOne({
+          where: { product_id: 2, cart_id: testCartId },
+        }).then(cartItem => {
+          // Make sure the quantity was correctly updated
+          expect(cartItem.getDataValue('quantity')).toEqual(12);
+          expect(cartItem.getDataValue('product_id')).toEqual(2);
+          expect(cartItem.getDataValue('cart_id')).toEqual(testCartId);
+        })
+      });
+    });
+
+    afterAll(() => {
+      return db.CartItem.destroy({
+        where: { cart_id: testCartId },
+      }).then(() => {
+        return db.Cart.destroy({
+          where: { cart_id: testCartId },
+        });
+      });
+    });
+  });
 });
 
 afterAll(() => {

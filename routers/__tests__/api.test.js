@@ -57,6 +57,21 @@ describe('api', () => {
       })
   });
 
+  it('should respond correctly on POST to /api/cart/update', () => {
+    dbFunctions.updateQuantity = jest.fn();
+
+    return request(app)
+      .post('/api/cart/update')
+      .set('Cookie', ['id=test-cart-update'])
+      .send({ productId: 42, quantity: 7 })
+      .expect(200)
+      .then(response => {
+        const { status } = response.body;
+        expect(status).toEqual('success');
+        expect(dbFunctions.updateQuantity).toHaveBeenCalledWith(42, 'test-cart-update', 7);
+      });
+  });
+
   describe('validate', () => {
     it('should respond correctly for a valid address', () => {
       const queryParams = {

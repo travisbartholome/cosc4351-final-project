@@ -31,7 +31,7 @@ api.post('/cart/remove', (req, res) => {
   const userIdCookie = req.cookies.id;
 
   // Remove the specified item from the user's cart
-  // Return the newe cart state as the POST response
+  // Return the new cart state as the POST response
   return dbFunctions
     .removeItemFromCart(productId, userIdCookie)
     .then(({ cart }) => res.json(cart));

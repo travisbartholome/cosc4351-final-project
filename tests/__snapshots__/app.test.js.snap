@@ -221,9 +221,9 @@ exports[`App views should render the browse page successfully 2`] = `
 exports[`App views should render the cart page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "6507",
+  "content-length": "6525",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"196b-p9y7bMDYqAENs8tedfNKO1DKT2Q\\"",
+  "etag": "W/\\"197d-Kpu38qLvclBmxc+Mrz6UEt9JwvQ\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -287,7 +287,7 @@ exports[`App views should render the cart page successfully 2`] = `
 </nav>
   </header>
 
-  <div class=\\"container\\">
+  <div class=\\"container content-container\\">
    <div class=\\"card shopping-cart\\">
             <div class=\\"card-header bg-dark text-light clearfix\\">
                 <i class=\\"fa fa-shopping-cart\\" aria-hidden=\\"true\\"></i>
@@ -669,9 +669,9 @@ exports[`App views should render the checkout page successfully 2`] = `
 exports[`App views should render the order summary page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "3640",
+  "content-length": "5259",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"e38-xKvB0EPFYJtLwDoKua2IK2ch4o4\\"",
+  "etag": "W/\\"148b-Em5ZORuc6qMYhKb7K63nftr23G0\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -694,6 +694,7 @@ exports[`App views should render the order summary page successfully 2`] = `
 <link rel=\\"stylesheet\\" href=\\"https://use.fontawesome.com/releases/v5.7.0/css/all.css\\" integrity=\\"sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ\\" crossorigin=\\"anonymous\\">
 <link rel=\\"stylesheet\\" href=\\"/static/styles/header.css\\" />
 <link rel=\\"stylesheet\\" href=\\"/static/styles/global.css\\" />
+  <link rel=\\"stylesheet\\" href=\\"/static/styles/summary.css\\" />
 </head>
 <body class=\\"bg-light\\">
   <header>
@@ -733,15 +734,80 @@ exports[`App views should render the order summary page successfully 2`] = `
 </nav>
   </header>
   <div class=\\"content-container\\">
-    <h1>Order Summary</h1>
-    <p>[{&#34;id&#34;:4,&#34;price&#34;:6,&#34;quantity&#34;:2,&#34;description&#34;:&#34;Cheap product.&#34;,&#34;name&#34;:&#34;Product 4&#34;,&#34;image&#34;:&#34;product4.jpg&#34;}]</p>
-    <p>{&#34;country&#34;:&#34;United States&#34;,&#34;street1&#34;:&#34;4800 CALHOUN RD&#34;,&#34;street2&#34;:&#34;&#34;,&#34;city&#34;:&#34;HOUSTON&#34;,&#34;zip&#34;:&#34;77204&#34;,&#34;state&#34;:&#34;TX&#34;,&#34;zip4&#34;:&#34;2610&#34;,&#34;delivery_point&#34;:&#34;00&#34;,&#34;carrier_route&#34;:&#34;C002&#34;,&#34;footnotes&#34;:&#34;Q&#34;,&#34;dpv_confirmation&#34;:&#34;Y&#34;,&#34;dpv_footnotes&#34;:&#34;AAU1&#34;,&#34;central_delivery_point&#34;:&#34;N&#34;}</p>
-    <p>12</p>
-    <p>****-****-****-5678</p>
-    <p>Credit</p>
-    <p>John</p>
-    <p>Doe</p>
-    <p>{&#34;products&#34;:[],&#34;total&#34;:0}</p>
+    <h1 class=\\"section-header\\">Order summary</h1>
+    
+    <!-- Loop through products list to display ordered products -->
+    <!-- View is mostly similar to the cart page -->
+    <div class=\\"card col-md-7\\">
+      <div class=\\"card-body\\">
+        
+          <div class=\\"row d-flex align-items-center\\">
+            <div class=\\"col-md-3 d-flex justify-content-center\\">
+              <div class=\\"img-container\\">
+                <img class=\\"product-image\\" src=\\"/static/images/product4.jpg\\" alt=\\"Product image\\">
+              </div>
+            </div>
+            <div class=\\"col-md-4 text-md-left\\">
+              <h4 class=\\"product-name\\"><strong>Product 4</strong></h4>
+              <h4><small>Cheap product.</small></h4>
+            </div>
+            <div class=\\"col-md-5 text-md-right\\">
+              <h4>$6.00<span class=\\"text-muted\\"> x </span>2</h4>
+            </div>
+          </div>
+          
+        
+      </div>
+      
+      <div class=\\"card-footer bg-dark text-light d-flex align-items-center\\">
+        <span id=\\"order-total\\">Order total: $12.00</span>
+      </div>
+    </div>
+
+    <h3 class=\\"section-header\\">Shipping address</h3>
+
+    <!-- Show address/shipping information in another card -->
+    <div class=\\"card col-md-7\\">
+      <div class=\\"card-body\\">
+        <div class=\\"row\\">
+          <span><strong>Name: </strong>John Doe</span>
+        </div>
+        <div class=\\"row\\">
+          <span><strong>Address:</strong></span>
+        </div>
+        <div class=\\"row\\">
+          <span>4800 CALHOUN RD</span>
+        </div>
+        <div class=\\"row\\">
+          <span></span>
+        </div>
+        <div class=\\"row\\">
+          <span>HOUSTON, TX 77204-2610</span>
+        </div>
+        <div class=\\"row\\">
+          <span><strong>Country: </strong>United States</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class=\\"section-header\\">Payment information</h3>
+
+    <!-- Show payment information in another card -->
+    <div class=\\"card col-md-7\\">
+      <div class=\\"card-body\\">
+        <div class=\\"row\\">
+          <span><strong>Name on card: </strong>John Doe</span>
+        </div>
+        <div class=\\"row\\">
+          <span><strong>Card type: </strong>Credit</span>
+        </div>
+        <div class=\\"row\\">
+          <span><strong>Card number: </strong>****-****-****-5678</span>
+        </div>
+      </div>
+    </div>
+
+    <h4 class=\\"section-header\\">Thanks for stopping by the Swag Store!</h4>
   </div>
   <footer class=\\"container-fluid text-center\\">
     
@@ -772,6 +838,7 @@ exports[`App views should render the order summary page successfully if no ID co
 <link rel=\\"stylesheet\\" href=\\"https://use.fontawesome.com/releases/v5.7.0/css/all.css\\" integrity=\\"sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ\\" crossorigin=\\"anonymous\\">
 <link rel=\\"stylesheet\\" href=\\"/static/styles/header.css\\" />
 <link rel=\\"stylesheet\\" href=\\"/static/styles/global.css\\" />
+  <link rel=\\"stylesheet\\" href=\\"/static/styles/summary.css\\" />
 </head>
 <body class=\\"bg-light\\">
   <header>
@@ -811,15 +878,64 @@ exports[`App views should render the order summary page successfully if no ID co
 </nav>
   </header>
   <div class=\\"content-container\\">
-    <h1>Order Summary</h1>
-    <p>[]</p>
-    <p>{&#34;country&#34;:&#34;United States&#34;,&#34;street1&#34;:&#34;4800 CALHOUN RD&#34;,&#34;street2&#34;:&#34;&#34;,&#34;city&#34;:&#34;HOUSTON&#34;,&#34;zip&#34;:&#34;77204&#34;,&#34;state&#34;:&#34;TX&#34;,&#34;zip4&#34;:&#34;2610&#34;,&#34;delivery_point&#34;:&#34;00&#34;,&#34;carrier_route&#34;:&#34;C002&#34;,&#34;footnotes&#34;:&#34;Q&#34;,&#34;dpv_confirmation&#34;:&#34;Y&#34;,&#34;dpv_footnotes&#34;:&#34;AAU1&#34;,&#34;central_delivery_point&#34;:&#34;N&#34;}</p>
-    <p>0</p>
-    <p>****-****-****-5678</p>
-    <p>Credit</p>
-    <p>John</p>
-    <p>Doe</p>
-    <p>{&#34;products&#34;:[],&#34;total&#34;:0}</p>
+    <h1 class=\\"section-header\\">Order summary</h1>
+    
+    <!-- Loop through products list to display ordered products -->
+    <!-- View is mostly similar to the cart page -->
+    <div class=\\"card col-md-7\\">
+      <div class=\\"card-body\\">
+        
+      </div>
+      
+      <div class=\\"card-footer bg-dark text-light d-flex align-items-center\\">
+        <span id=\\"order-total\\">Order total: $0.00</span>
+      </div>
+    </div>
+
+    <h3 class=\\"section-header\\">Shipping address</h3>
+
+    <!-- Show address/shipping information in another card -->
+    <div class=\\"card col-md-7\\">
+      <div class=\\"card-body\\">
+        <div class=\\"row\\">
+          <span><strong>Name: </strong>John Doe</span>
+        </div>
+        <div class=\\"row\\">
+          <span><strong>Address:</strong></span>
+        </div>
+        <div class=\\"row\\">
+          <span>4800 CALHOUN RD</span>
+        </div>
+        <div class=\\"row\\">
+          <span></span>
+        </div>
+        <div class=\\"row\\">
+          <span>HOUSTON, TX 77204-2610</span>
+        </div>
+        <div class=\\"row\\">
+          <span><strong>Country: </strong>United States</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class=\\"section-header\\">Payment information</h3>
+
+    <!-- Show payment information in another card -->
+    <div class=\\"card col-md-7\\">
+      <div class=\\"card-body\\">
+        <div class=\\"row\\">
+          <span><strong>Name on card: </strong>John Doe</span>
+        </div>
+        <div class=\\"row\\">
+          <span><strong>Card type: </strong>Credit</span>
+        </div>
+        <div class=\\"row\\">
+          <span><strong>Card number: </strong>****-****-****-5678</span>
+        </div>
+      </div>
+    </div>
+
+    <h4 class=\\"section-header\\">Thanks for stopping by the Swag Store!</h4>
   </div>
   <footer class=\\"container-fluid text-center\\">
     

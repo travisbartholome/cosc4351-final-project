@@ -109,9 +109,11 @@ app.post('/summary', async (req, res) => {
   // We know the user now has an empty cart
   const cart = { products: [], total: 0 };
 
-  // TODO: clean out user cart entries
-  // use dbFunctions.removeItemFromCart and loop through userCart
+  // Clean out all of this user's cart entries
+  // NOTE: if we were selling actual products, some sort of post-purchase logic would happen here
+  await dbFunctions.emptyUserCart(userIdCookie);
 
+  // Render the order summary
   res.render('summary', {
     order, // Summary data
     cart, // Current cart info

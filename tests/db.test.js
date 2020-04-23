@@ -271,6 +271,58 @@ describe('dbFunctions', () => {
       });
     });
   });
+
+  describe('emptyUserCart', () => {
+    const userIdCookie = 'emptyUserCartTest';
+    let testCartId;
+
+    // Set up test data
+    beforeAll(() => {
+      return db.Cart.create({
+        session_key: userIdCookie,
+      }).then(newCart => {
+        testCartId = newCart.getDataValue('cart_id');
+        return db.CartItem.create({
+          product_id: 2,
+          cart_id: testCartId,
+          quantity: 8,
+        });
+      }).then(() => {
+        return db.CartItem.create({
+          product_id: 5,
+          cart_id: testCartId,
+          quantity: 3,
+        });
+      });
+    });
+
+    it('should remove all items from a user\'s cart', () => {
+      return dbFunctions.emptyUserCart(userIdCookie).then(result => {
+        expect(result).toEqual(2); // Number of rows deleted from cart_items
+
+        // Check that there are no longer any matching cart items for the test user
+        return db.CartItem.findOne({
+          where: {
+            cart_id: testCartId,
+          },
+          raw: true,
+        }).then(cartItem => {
+          expect(cartItem).toBeNull();
+        });
+      });
+    });
+
+    // Clean up test data
+    afterAll(() => {
+      return db.CartItem.destroy({
+        where: { cart_id: testCartId },
+      }).then(() => {
+        return db.Cart.destroy({
+          where: { cart_id: testCartId },
+        });
+      });
+    });
+  });
 });
 
 afterAll(() => {

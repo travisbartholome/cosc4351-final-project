@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const USPS = require('usps-webtools');
 
 // Import database functions
 const dbFunctions = require('../db/dbFunctions');
+// Import USPS util method
+const validateAddress = require('../util/validateAddress');
 
 const api = express.Router();
 
@@ -51,19 +52,7 @@ api.post('/cart/update', (req, res) => {
 api.get('/validate', (req, res) => {
   const { street1, street2, city, state, zipcode } = req.query;
 
-  const usps = new USPS({
-    server: 'http://production.shippingapis.com/ShippingAPI.dll',
-    userId: process.env.DB_USPS,
-    ttl: 10000, // TTL in milliseconds for request
-  });
-
-  usps.verify({
-    street1: street1,
-    street2: street2,
-    city: city,
-    state: state,
-    zip: zipcode
-  }, (err, address) => {
+  validateAddress(street1, street2, city, state, zipcode).then(address => {
     res.json({
       addressValid: address ? true : false,
       address,

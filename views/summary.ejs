@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<!-- stock head file that contains all pages metadata-->
+<head>
+  <%-include ('head.ejs') -%>
+</head>
+<body class="bg-light">
+  <header>
+    <%-include ('header.ejs') -%>
+  </header>
+  <div class="content-container">
+    <h1>Order Summary</h1>
+    <p><%= JSON.stringify(order.products) %></p>
+    <p><%= JSON.stringify(order.address) %></p>
+    <p><%= order.total %></p>
+    <p><%= order.ccNumber %></p>
+    <p><%= order.paymentMethod %></p>
+    <p><%= order.firstName %></p>
+    <p><%= order.lastName %></p>
+    <p><%= JSON.stringify(cart) %></p>
+  </div>
+  <footer class="container-fluid text-center">
+    <%-include ('footer.ejs') -%>
+  </footer>
+</body>
+</html>

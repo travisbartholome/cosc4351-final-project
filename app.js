@@ -2,6 +2,7 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 // Add .env variables to environment
 require('dotenv').config();
@@ -10,6 +11,7 @@ require('dotenv').config();
 const db = require('./db/db.js');
 const dbFunctions = require('./db/dbFunctions');
 const idCookiesMiddleware = require('./util/idCookies');
+const validateAddress = require('./util/validateAddress');
 const apiRouter = require('./routers/api');
 
 // If environment defines a port, use it; if not, default to the standard 3000
@@ -23,6 +25,8 @@ app.use('/api', apiRouter);
 
 // Attach middleware
 app.use(cookieParser()); // Parse cookie headers
+app.use(bodyParser.urlencoded({ extended: true })); // Parse POST bodies
+app.use(bodyParser.json()); // Parse POST bodies
 app.use(idCookiesMiddleware); // Attach ID cookies when needed
 
 // Set up express to serve static files from the /static directory
@@ -67,6 +71,51 @@ app.get('/cart', (req, res) => {
 app.get('/checkout', async (req, res) => {
   const cart = await dbFunctions.getUserCart(req.cookies.id || '');
   res.render('checkout', { cart });
+});
+
+// Checkout handler and order summary display route
+app.post('/summary', async (req, res) => {
+  console.log(req.body); // TODO: remove
+
+  const userIdCookie = req.cookies.id || '';
+  const { street1, street2, city, state, zipcode } = req.body;
+  const { firstName, lastName, country, paymentMethod: payment } = req.body;
+
+  // Get USPS normalized version of the input address
+  // Pass in req.body as query params
+  const address = await validateAddress(street1, street2, city, state, zipcode);
+
+  // Get the cart with which the user submitted the order
+  const userCart = await dbFunctions.getUserCart(userIdCookie);
+
+  // Get last 4 digits of credit card info
+  const ccNumber = '****-****-****-' + req.body.ccNumber.slice(-4);
+  // Pretty-printed payment method
+  const paymentMethod = payment.charAt(0).toUpperCase() + payment.slice(1);
+
+  // Compile order summary information
+  const order = {
+    ...userCart,
+    address: {
+      country,
+      ...address,
+    },
+    ccNumber,
+    paymentMethod,
+    firstName,
+    lastName,
+  };
+
+  // We know the user now has an empty cart
+  const cart = { products: [], total: 0 };
+
+  // TODO: clean out user cart entries
+  // use dbFunctions.removeItemFromCart and loop through userCart
+
+  res.render('summary', {
+    order, // Summary data
+    cart, // Current cart info
+  });
 });
 
 // Set the app to listen on a network port

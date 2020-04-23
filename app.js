@@ -75,11 +75,9 @@ app.get('/checkout', async (req, res) => {
 
 // Checkout handler and order summary display route
 app.post('/summary', async (req, res) => {
-  console.log(req.body); // TODO: remove
-
   const userIdCookie = req.cookies.id || '';
   const { street1, street2, city, state, zipcode } = req.body;
-  const { firstName, lastName, country, paymentMethod: payment } = req.body;
+  const { firstName, lastName, country, ccName, paymentMethod: payment } = req.body;
 
   // Get USPS normalized version of the input address
   // Pass in req.body as query params
@@ -101,6 +99,7 @@ app.post('/summary', async (req, res) => {
       ...address,
     },
     ccNumber,
+    ccName,
     paymentMethod,
     firstName,
     lastName,

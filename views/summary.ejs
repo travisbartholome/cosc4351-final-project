@@ -3,21 +3,87 @@
 <!-- stock head file that contains all pages metadata-->
 <head>
   <%-include ('head.ejs') -%>
+  <link rel="stylesheet" href="/static/styles/summary.css" />
 </head>
 <body class="bg-light">
   <header>
     <%-include ('header.ejs') -%>
   </header>
   <div class="content-container">
-    <h1>Order Summary</h1>
-    <p><%= JSON.stringify(order.products) %></p>
-    <p><%= JSON.stringify(order.address) %></p>
-    <p><%= order.total %></p>
-    <p><%= order.ccNumber %></p>
-    <p><%= order.paymentMethod %></p>
-    <p><%= order.firstName %></p>
-    <p><%= order.lastName %></p>
-    <p><%= JSON.stringify(cart) %></p>
+    <h1 class="section-header">Order summary</h1>
+    
+    <!-- Loop through products list to display ordered products -->
+    <!-- View is mostly similar to the cart page -->
+    <div class="card col-md-7">
+      <div class="card-body">
+        <% order.products.forEach(function(item, index) { %>
+          <div class="row d-flex align-items-center">
+            <div class="col-md-3 d-flex justify-content-center">
+              <div class="img-container">
+                <img class="product-image" src="/static/images/<%= item.image %>" alt="Product image">
+              </div>
+            </div>
+            <div class="col-md-4 text-md-left">
+              <h4 class="product-name"><strong><%= item.name %></strong></h4>
+              <h4><small><%= item.description %></small></h4>
+            </div>
+            <div class="col-md-5 text-md-right">
+              <h4>$<%= item.price.toFixed(2) %><span class="text-muted"> x </span><%= item.quantity %></h4>
+            </div>
+          </div>
+          <% if (index !== order.products.length - 1) { %><hr><% } %>
+        <%});%>
+      </div>
+      
+      <div class="card-footer bg-dark text-light d-flex align-items-center">
+        <span id="order-total">Order total: $<%= order.total.toFixed(2) %></span>
+      </div>
+    </div>
+
+    <h3 class="section-header">Shipping address</h3>
+
+    <!-- Show address/shipping information in another card -->
+    <div class="card col-md-7">
+      <div class="card-body">
+        <div class="row">
+          <span><strong>Name: </strong><%= order.firstName + ' ' + order.lastName %></span>
+        </div>
+        <div class="row">
+          <span><strong>Address:</strong></span>
+        </div>
+        <div class="row">
+          <span><%= order.address.street1 %></span>
+        </div>
+        <div class="row">
+          <span><%= order.address.street2 %></span>
+        </div>
+        <div class="row">
+          <span><%= order.address.city %>, <%= order.address.state %> <%= order.address.zip + '-' + order.address.zip4 %></span>
+        </div>
+        <div class="row">
+          <span><strong>Country: </strong><%= order.address.country %></span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-header">Payment information</h3>
+
+    <!-- Show payment information in another card -->
+    <div class="card col-md-7">
+      <div class="card-body">
+        <div class="row">
+          <span><strong>Name on card: </strong><%= order.ccName %></span>
+        </div>
+        <div class="row">
+          <span><strong>Card type: </strong><%= order.paymentMethod %></span>
+        </div>
+        <div class="row">
+          <span><strong>Card number: </strong><%= order.ccNumber %></span>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="section-header">Thanks for stopping by the Swag Store!</h4>
   </div>
   <footer class="container-fluid text-center">
     <%-include ('footer.ejs') -%>

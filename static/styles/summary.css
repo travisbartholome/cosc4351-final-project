@@ -1,0 +1,25 @@
+.product-image {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.img-container {
+  height: 100px;
+  width: 100px;
+  margin-right: 10px;
+  margin-left: -15px;
+}
+
+.section-header {
+  margin: 20px auto;
+}
+
+.card-footer {
+  margin: 0 -16px;
+}
+
+#order-total {
+  font-weight: bold;
+  font-size: 1.2em;
+}

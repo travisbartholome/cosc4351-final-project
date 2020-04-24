@@ -1,6 +1,7 @@
 const request = require('supertest');
 
 const app = require('../app');
+const dbFunctions = require('../db/dbFunctions');
 
 describe('App', () => {
   it('should successfully render a page on GET to /', done => {
@@ -89,6 +90,64 @@ describe('App', () => {
           // Check response body
           expect(res.text).toMatchSnapshot();
         })
+    });
+
+    it('should render the order summary page successfully', () => {
+      // Mock out the db function that clears cart entries
+      const mockEmptyUserCart = jest.fn();
+      dbFunctions.emptyUserCart = mockEmptyUserCart;
+
+      return request(app)
+        .post('/summary')
+        .set('Cookie', ['id=dcbda148-f351-43e0-9e8a-5c2f4643db5c'])
+        .send({
+          firstName: 'John',
+          lastName: 'Doe',
+          street1: '4800 Calhoun Rd',
+          street2: '',
+          country: 'United States',
+          state: 'TX',
+          city: 'Houston',
+          zipcode: '77204',
+          paymentMethod: 'credit',
+          ccName: 'John Doe',
+          ccNumber: '1234567812345678',
+        }).then(res => {
+          // Check that the response matches what we expect
+          delete res.header.date;
+          expect(res.header).toMatchSnapshot();
+          expect(res.text).toMatchSnapshot();
+
+          // Check that cart entries would have been cleared out
+          expect(mockEmptyUserCart).toHaveBeenCalledWith('dcbda148-f351-43e0-9e8a-5c2f4643db5c');
+        });
+    });
+
+    it('should render the order summary page successfully if no ID cookie is provided', () => {
+      // Mock out the db function that clears cart entries
+      const mockEmptyUserCart = jest.fn();
+      dbFunctions.emptyUserCart = mockEmptyUserCart;
+
+      return request(app)
+        .post('/summary')
+        .send({
+          firstName: 'John',
+          lastName: 'Doe',
+          street1: '4800 Calhoun Rd',
+          street2: '',
+          country: 'United States',
+          state: 'TX',
+          city: 'Houston',
+          zipcode: '77204',
+          paymentMethod: 'credit',
+          ccName: 'John Doe',
+          ccNumber: '1234567812345678',
+        }).then(res => {
+          // Check that the response matches what we expect
+          expect(res.text).toMatchSnapshot();
+          // Check that cart entries would have been cleared out
+          expect(mockEmptyUserCart).toHaveBeenCalledWith('');
+        });
     });
   });
 });

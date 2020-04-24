@@ -396,9 +396,9 @@ exports[`App views should render the cart page successfully 2`] = `
 exports[`App views should render the checkout page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "12537",
+  "content-length": "12253",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"30f9-CyuvBATvttfH46YUqjs02gfQhUk\\"",
+  "etag": "W/\\"2fdd-TSj1Ww3WztojgIQ7/Y8SEnMm3u0\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -577,10 +577,6 @@ exports[`App views should render the checkout page successfully 2`] = `
               <div class=\\"custom-control custom-radio\\">
                 <input id=\\"debit\\" value=\\"debit\\" name=\\"paymentMethod\\" type=\\"radio\\" class=\\"custom-control-input\\" required>
                 <label class=\\"custom-control-label\\" for=\\"debit\\">Debit card</label>
-              </div>
-              <div class=\\"custom-control custom-radio\\">
-                <input id=\\"paypal\\" value=\\"paypal\\" name=\\"paymentMethod\\" type=\\"radio\\" class=\\"custom-control-input\\" required>
-                <label class=\\"custom-control-label\\" for=\\"paypal\\">Paypal</label>
               </div>
             </div>
             <div class=\\"row\\">
@@ -960,9 +956,9 @@ exports[`App views should render the order summary page successfully if no ID co
 exports[`App views should render the root/home page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "3100",
+  "content-length": "3180",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"c1c-hLALIcgFbrKIFE1UvmdZ0Hv3poU\\"",
+  "etag": "W/\\"c6c-TmoEbmD+D+K1aUXIOlfIMoCAC+M\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -1031,6 +1027,7 @@ exports[`App views should render the root/home page successfully 2`] = `
     <span class =\\"fas fa-glasses fa-4x\\"></span> 
     <p class=\\"lead\\"><strong>Put some swagger in your stride</strong></p>
     </div>
+    <a href=\\"/browse\\" class=\\"btn btn-secondary btn-lg\\">Browse our products</a>
   </div>
   <footer class=\\"container-fluid text-center\\">
     

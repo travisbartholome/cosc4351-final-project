@@ -1,0 +1,16 @@
+#address-feedback-incorrect {
+  border-color: #d60000;
+  background: #ff7a7a;
+}
+
+#address-feedback-correct {
+  border-color: green;
+  background: lightgreen;
+}
+
+.address-feedback {
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid;
+}

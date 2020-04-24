@@ -2,10 +2,11 @@
 <html>
   <head>
     <%-include ('head.ejs') -%>
+    <link rel="stylesheet" href="/static/styles/checkout.css" />
   </head>
   <body class="bg-light">
     <header>
-        <%-include ('header.ejs') -%>
+      <%-include ('header.ejs') -%>
     </header>
     <div class="container content-container">
       <div class="row">
@@ -105,13 +106,17 @@
                   Zip code required.
                 </div>
               </div>
-              <div id="address-feedback-correct" style="display:none">
-                Address verified!
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 address-feedback d-none" id="address-feedback-correct">
+                <span>Address verified!</span>
               </div>
-              <div id="address-feedback-incorrect" style="display:none">
-                Address incorrect! Please verify and try again. 
+              <div class="col-md-4 address-feedback d-none" id="address-feedback-incorrect">
+                <span>Address invalid! Please correct it and try again.</span>
               </div>
             </div>
+
             <h4 class="mb-3">Payment</h4>
             <div class="d-block my-3">
               <div class="custom-control custom-radio">
@@ -186,13 +191,17 @@
             setTimeout(function() {
               $('#address-form').submit();
             }, 1000);
-            $('#address-feedback-correct').css('display','block');
-            $('#address-feedback-incorrect').css('display','none');
+            $('#address-feedback-correct').addClass('d-block');
+            $('#address-feedback-incorrect').addClass('d-none');
+            $('#address-feedback-correct').removeClass('d-none');
+            $('#address-feedback-incorrect').removeClass('d-block');
           }
           else {
             // Show address validation was incorrect
-            $('#address-feedback-correct').css('display','none');
-            $('#address-feedback-incorrect').css('display','block');
+            $('#address-feedback-correct').addClass('d-none');
+            $('#address-feedback-incorrect').addClass('d-block');
+            $('#address-feedback-correct').removeClass('d-block');
+            $('#address-feedback-incorrect').removeClass('d-none');
           }
           console.log(data);
         }

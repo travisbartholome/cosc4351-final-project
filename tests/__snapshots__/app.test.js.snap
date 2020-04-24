@@ -396,9 +396,9 @@ exports[`App views should render the cart page successfully 2`] = `
 exports[`App views should render the checkout page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "12089",
+  "content-length": "12253",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"2f39-bS7ZE6JomWmdxmjWjz4BmeVY/DI\\"",
+  "etag": "W/\\"2fdd-TSj1Ww3WztojgIQ7/Y8SEnMm3u0\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -420,10 +420,11 @@ exports[`App views should render the checkout page successfully 2`] = `
 <link rel=\\"stylesheet\\" href=\\"https://use.fontawesome.com/releases/v5.7.0/css/all.css\\" integrity=\\"sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ\\" crossorigin=\\"anonymous\\">
 <link rel=\\"stylesheet\\" href=\\"/static/styles/header.css\\" />
 <link rel=\\"stylesheet\\" href=\\"/static/styles/global.css\\" />
+    <link rel=\\"stylesheet\\" href=\\"/static/styles/checkout.css\\" />
   </head>
   <body class=\\"bg-light\\">
     <header>
-        <!-- views/header.ejs -->
+      <!-- views/header.ejs -->
 <!-- creates inverted (black) navigation bar w/ top that is fixed-->
 <nav class=\\"navbar navbar-expand-md navbar-dark unique-color-dark fixed-top\\">
     <!-- Brand/logo -->
@@ -556,13 +557,17 @@ exports[`App views should render the checkout page successfully 2`] = `
                   Zip code required.
                 </div>
               </div>
-              <div id=\\"address-feedback-correct\\" style=\\"display:none\\">
-                Address verified!
+            </div>
+
+            <div class=\\"row\\">
+              <div class=\\"col-md-4 address-feedback d-none\\" id=\\"address-feedback-correct\\">
+                <span>Address verified!</span>
               </div>
-              <div id=\\"address-feedback-incorrect\\" style=\\"display:none\\">
-                Address incorrect! Please verify and try again. 
+              <div class=\\"col-md-4 address-feedback d-none\\" id=\\"address-feedback-incorrect\\">
+                <span>Address invalid! Please correct it and try again.</span>
               </div>
             </div>
+
             <h4 class=\\"mb-3\\">Payment</h4>
             <div class=\\"d-block my-3\\">
               <div class=\\"custom-control custom-radio\\">
@@ -572,10 +577,6 @@ exports[`App views should render the checkout page successfully 2`] = `
               <div class=\\"custom-control custom-radio\\">
                 <input id=\\"debit\\" value=\\"debit\\" name=\\"paymentMethod\\" type=\\"radio\\" class=\\"custom-control-input\\" required>
                 <label class=\\"custom-control-label\\" for=\\"debit\\">Debit card</label>
-              </div>
-              <div class=\\"custom-control custom-radio\\">
-                <input id=\\"paypal\\" value=\\"paypal\\" name=\\"paymentMethod\\" type=\\"radio\\" class=\\"custom-control-input\\" required>
-                <label class=\\"custom-control-label\\" for=\\"paypal\\">Paypal</label>
               </div>
             </div>
             <div class=\\"row\\">
@@ -640,13 +641,17 @@ exports[`App views should render the checkout page successfully 2`] = `
             setTimeout(function() {
               $('#address-form').submit();
             }, 1000);
-            $('#address-feedback-correct').css('display','block');
-            $('#address-feedback-incorrect').css('display','none');
+            $('#address-feedback-correct').addClass('d-block');
+            $('#address-feedback-incorrect').addClass('d-none');
+            $('#address-feedback-correct').removeClass('d-none');
+            $('#address-feedback-incorrect').removeClass('d-block');
           }
           else {
             // Show address validation was incorrect
-            $('#address-feedback-correct').css('display','none');
-            $('#address-feedback-incorrect').css('display','block');
+            $('#address-feedback-correct').addClass('d-none');
+            $('#address-feedback-incorrect').addClass('d-block');
+            $('#address-feedback-correct').removeClass('d-block');
+            $('#address-feedback-incorrect').removeClass('d-none');
           }
           console.log(data);
         }
@@ -669,9 +674,9 @@ exports[`App views should render the checkout page successfully 2`] = `
 exports[`App views should render the order summary page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "5259",
+  "content-length": "5348",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"148b-Em5ZORuc6qMYhKb7K63nftr23G0\\"",
+  "etag": "W/\\"14e4-moi8wRr0yCqSo0Uj+bi3g1jksSg\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -951,9 +956,9 @@ exports[`App views should render the order summary page successfully if no ID co
 exports[`App views should render the root/home page successfully 1`] = `
 Object {
   "connection": "close",
-  "content-length": "3100",
+  "content-length": "3180",
   "content-type": "text/html; charset=utf-8",
-  "etag": "W/\\"c1c-hLALIcgFbrKIFE1UvmdZ0Hv3poU\\"",
+  "etag": "W/\\"c6c-TmoEbmD+D+K1aUXIOlfIMoCAC+M\\"",
   "x-powered-by": "Express",
 }
 `;
@@ -1022,6 +1027,7 @@ exports[`App views should render the root/home page successfully 2`] = `
     <span class =\\"fas fa-glasses fa-4x\\"></span> 
     <p class=\\"lead\\"><strong>Put some swagger in your stride</strong></p>
     </div>
+    <a href=\\"/browse\\" class=\\"btn btn-secondary btn-lg\\">Browse our products</a>
   </div>
   <footer class=\\"container-fluid text-center\\">
     
